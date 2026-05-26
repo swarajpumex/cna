@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-    $config['base_url'] = 'https://cinemanewsagency.com/';
-//$config['base_url'] = 'http://localhost/cinemanews/';
+// $config['base_url'] = 'https://cinemanewsagency.com/';
+$config['base_url'] = 'http://localhost/';
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +39,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['index_page'] = 'index.php';
 
 
-$config['admin_title'] 			="Cinema News Agency Admin"; // this will come all the admin page title text.
-$config['admin_controller'] 	="CinemaAd"; // this is the default admin controller.
+$config['admin_title']             = "Cinema News Agency Admin"; // this will come all the admin page title text.
+$config['admin_controller']     = "CinemaAd"; // this is the default admin controller.
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ $config['admin_controller'] 	="CinemaAd"; // this is the default admin controlle
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']    = 'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']    = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -228,7 +228,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 4;
 
 /*
 |--------------------------------------------------------------------------
@@ -384,12 +384,24 @@ $config['encryption_key'] = 'CinemaNewsAgency2026SecureKey98765';
 */
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
+$config['sess_save_path'] = APPPATH . 'cache/sessions';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
 
+
+
+
+
+$config['sess_use_database'] = ($config['sess_driver'] === 'database');
+$config['sess_table_name'] = ($config['sess_driver'] === 'database' && ! empty($config['sess_save_path']))
+    ? $config['sess_save_path']
+    : 'ci_sessions';
+$config['sess_encrypt_cookie'] = FALSE;
+$config['sess_expire_on_close'] = FALSE;
+$config['sess_match_useragent'] = TRUE;
+$config['time_reference'] = 'local';
 /*
 |--------------------------------------------------------------------------
 | Cookie Related Variables
@@ -405,11 +417,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']        = '/';
+$config['cookie_secure']    = FALSE;
+$config['cookie_httponly']     = FALSE;
 
 /*
 |--------------------------------------------------------------------------
