@@ -1,0 +1,637 @@
+
+/*==============================================
+              Template Color Style
+============================================= */
+.color_panel_box {
+  background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
+  border-radius: 0 5px 5px 0;
+  height: 100px;
+  left: -150px;
+  position: fixed;
+  top: 200px;
+  width: 150px;
+  z-index: 11;
+}
+.color_panel {
+  padding: 5px;
+  text-align: center;
+}
+.color_panel span {
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  height: 30px;
+  margin: 5px;
+  text-align: center;
+  width: 30px;
+}
+.panel_button {
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 25px;
+  left: 105%;
+  position: absolute;
+  top: 0;
+}
+
+.color_panel span.color_default{
+    background: #ff4949;
+}
+.color_panel span.color_peterRiver{
+    background: #3498db;
+}
+.color_panel span.color_emerald{
+    background: #2ecc71;
+}
+.color_panel span.color_amethyst{
+    background: #9b59b6;
+}
+.color_panel span.color_turquoise{
+    background: #1abc9c;
+}
+.color_panel span.color_alizarin{
+    background: #d35400;
+}
+/*
+  Default Template Color
+=======================================*/
+
+/*===========================
+          Color
+===========================*/
+.panel_button,
+.themex_btn:hover,
+.header-top-bar p i.fa,
+.social-icon ul li a:hover,
+.slider-content h2 span,
+.slider-content .themex_btn:hover,
+.section_header h2 span,
+.mixitup-control ul li.active,
+.overlay_content > a,
+.portfolio_footer .themex_btn:hover,
+.teamMemberProfile:hover h3,
+.post_date li:first-child a,
+.blog_image:hover .post_date li:last-child a,
+.blog_content h4 a:hover,
+.blog_content h5 a:hover,
+.blog_content h5 i.fa,
+.blog_content .themex_btn,
+.widget a:hover,
+.copy_right a,
+.banner_title h1,
+.breadcrumb.banner_breadcrumb li,
+.sidebar_title,
+.catagories a:hover,
+.recentPost .recent_post span a,
+.recentPost .recent_post a:hover,
+.blog_post_content li a i.fa,
+.blog_post_content a:hover,
+.about_content_right h5,
+.about_content_right li::before,
+.s_icon,
+.service_single_item:hover h5,
+.service_single_item a:hover,
+.benefit_content .themex_btn,
+.breadcrumb.banner_breadcrumb a:hover{
+    color: #ddbe6f;
+}
+/*==========================
+      Background Color
+==========================*/
+.themex_btn,
+nav.navigation-area,
+.navigation-area .navbar-nav li .dropdown_menu a:hover,
+.pogoSlider-nav-btn.pogoSlider-nav-btn--selected,
+.overlay,
+.service_col.active .service_title,
+.service_col.active .overlay,
+.owl-prev, 
+.owl-next,
+.mixitup-control ul li.active::after,
+.overlay_content > a:hover,
+.portfolio_footer,
+.member_link a:hover,
+#testimonial::after,
+.post_date li:last-child a,
+.blog_image:hover .post_date li:first-child a,
+.blog_content .themex_btn:hover,
+.ScrollToTop a,
+.tag_list a:hover,
+.blog_pagination .pagination a:hover,
+.service_single_item:hover .s_icon,
+#benefit,
+.spinner > div,
+.priceing_header,
+.like_box a:hover i.fa{
+  background-color: #9a9ea3;
+}
+/*==========================
+      Border Color
+==========================*/
+.themex_btn:hover,
+.slider-content .themex_btn:hover,
+.blog_content .themex_btn,
+.blog_sidebar .search_box input:focus,
+.blog_post_content .themex_btn:hover,
+.subscribe_form .btn.btn-default:hover, 
+.comment_form .themex_btn:hover,
+.contact_us_form .themex_btn:hover,
+.s_icon{
+  border: 1px solid transparent;
+}
+.ScrollToTop {
+ /* border: 2px solid #ff4949;*/
+}
+.comment_form .form-control:focus,
+.subscribe_form .form-control:focus, 
+.contact_us_form .form-control:focus{
+  border-color: #fba441;
+}
+
+
+/*
+  Start Peter River Template Color
+========================================= */
+/*===========================
+          Color
+===========================*/
+.color_peterRiver_theme .panel_button,
+.color_peterRiver_theme .themex_btn:hover,
+.color_peterRiver_theme .header-top-bar p i.fa,
+.color_peterRiver_theme .social-icon ul li a:hover,
+.color_peterRiver_theme .slider-content h2 span,
+.color_peterRiver_theme .slider-content .themex_btn:hover,
+.color_peterRiver_theme .section_header h2 span,
+.color_peterRiver_theme .mixitup-control ul li.active,
+.color_peterRiver_theme .overlay_content > a,
+.color_peterRiver_theme .portfolio_footer .themex_btn:hover,
+.color_peterRiver_theme .teamMemberProfile:hover h3,
+.color_peterRiver_theme .post_date li:first-child a,
+.color_peterRiver_theme .blog_image:hover .post_date li:last-child a,
+.color_peterRiver_theme .blog_content h4 a:hover,
+.color_peterRiver_theme .blog_content h5 a:hover,
+.color_peterRiver_theme .blog_content h5 i.fa,
+.color_peterRiver_theme .blog_content .themex_btn,
+.color_peterRiver_theme .widget a:hover,
+.color_peterRiver_theme .copy_right a,
+.color_peterRiver_theme .banner_title h1,
+.color_peterRiver_theme .breadcrumb.banner_breadcrumb li,
+.color_peterRiver_theme .sidebar_title,
+.color_peterRiver_theme .catagories a:hover,
+.color_peterRiver_theme .recentPost .recent_post span a,
+.color_peterRiver_theme .recentPost .recent_post a:hover,
+.color_peterRiver_theme .blog_post_content li a i.fa,
+.color_peterRiver_theme .blog_post_content a:hover,
+.color_peterRiver_theme .about_content_right h5,
+.color_peterRiver_theme .about_content_right li::before,
+.color_peterRiver_theme .s_icon,
+.color_peterRiver_theme .service_single_item:hover h5,
+.color_peterRiver_theme .service_single_item a:hover,
+.color_peterRiver_theme .breadcrumb.banner_breadcrumb a:hover,
+.color_peterRiver_theme .benefit_content .themex_btn{
+    color: #3498db;
+}
+
+/*==========================
+      Background Color
+==========================*/
+.color_peterRiver_theme .themex_btn,
+.color_peterRiver_theme nav.navigation-area,
+.color_peterRiver_theme .navigation-area .navbar-nav li .dropdown_menu a:hover,
+.color_peterRiver_theme .pogoSlider-nav-btn--selected,
+.color_peterRiver_theme .overlay,
+.color_peterRiver_theme .service_col.active .service_title,
+.color_peterRiver_theme .service_col.active .overlay,
+.color_peterRiver_theme .owl-prev, 
+.color_peterRiver_theme .owl-next,
+.color_peterRiver_theme .mixitup-control ul li.active::after,
+.color_peterRiver_theme .overlay_content > a:hover,
+.color_peterRiver_theme .portfolio_footer,
+.color_peterRiver_theme .member_link a:hover,
+.color_peterRiver_theme #testimonial::after,
+.color_peterRiver_theme .post_date li:last-child a,
+.color_peterRiver_theme .blog_image:hover .post_date li:first-child a,
+.color_peterRiver_theme .blog_content .themex_btn:hover,
+.color_peterRiver_theme .ScrollToTop a,
+.color_peterRiver_theme .tag_list a:hover,
+.color_peterRiver_theme .blog_pagination .pagination a:hover,
+.color_peterRiver_theme .service_single_item:hover .s_icon,
+.color_peterRiver_theme #benefit,
+.color_peterRiver_theme .like_box a:hover i.fa,
+.color_peterRiver_theme .priceing_header,
+.color_peterRiver_theme .spinner > div{
+  background-color: #3498db;
+}
+
+
+/*==========================
+      Border Color
+==========================*/
+.color_peterRiver_theme .themex_btn:hover,
+.color_peterRiver_theme .slider-content .themex_btn:hover,
+.color_peterRiver_theme .blog_content .themex_btn,
+.color_peterRiver_theme .blog_sidebar .search_box input:focus,
+.color_peterRiver_theme .blog_post_content .themex_btn:hover,
+.color_peterRiver_theme .subscribe_form .btn.btn-default:hover, 
+.color_peterRiver_theme .comment_form .themex_btn:hover,
+.color_peterRiver_theme .contact_us_form .themex_btn:hover,
+.color_peterRiver_theme .s_icon{
+  border: 1px solid #3498db;
+}
+.color_peterRiver_theme .ScrollToTop {
+  border: 2px solid #3498db;
+}
+.color_peterRiver_theme .comment_form .form-control:focus,
+.color_peterRiver_theme .subscribe_form .form-control:focus, 
+.color_peterRiver_theme .contact_us_form .form-control:focus{
+  border-color: #3498db;
+}
+
+/*
+  Start Emerald Theme Color
+========================================= */
+/*===========================
+          Color
+===========================*/
+.color_emerald_theme .panel_button,
+.color_emerald_theme .themex_btn:hover,
+.color_emerald_theme .header-top-bar p i.fa,
+.color_emerald_theme .social-icon ul li a:hover,
+.color_emerald_theme .slider-content h2 span,
+.color_emerald_theme .slider-content .themex_btn:hover,
+.color_emerald_theme .section_header h2 span,
+.color_emerald_theme .mixitup-control ul li.active,
+.color_emerald_theme .overlay_content > a,
+.color_emerald_theme .portfolio_footer .themex_btn:hover,
+.color_emerald_theme .teamMemberProfile:hover h3,
+.color_emerald_theme .post_date li:first-child a,
+.color_emerald_theme .blog_image:hover .post_date li:last-child a,
+.color_emerald_theme .blog_content h4 a:hover,
+.color_emerald_theme .blog_content h5 a:hover,
+.color_emerald_theme .blog_content h5 i.fa,
+.color_emerald_theme .blog_content .themex_btn,
+.color_emerald_theme .widget a:hover,
+.color_emerald_theme .copy_right a,
+.color_emerald_theme .banner_title h1,
+.color_emerald_theme .breadcrumb.banner_breadcrumb li,
+.color_emerald_theme .sidebar_title,
+.color_emerald_theme .catagories a:hover,
+.color_emerald_theme .recentPost .recent_post span a,
+.color_emerald_theme .recentPost .recent_post a:hover,
+.color_emerald_theme .blog_post_content li a i.fa,
+.color_emerald_theme .blog_post_content a:hover,
+.color_emerald_theme .about_content_right h5,
+.color_emerald_theme .about_content_right li::before,
+.color_emerald_theme .s_icon,
+.color_emerald_theme .service_single_item:hover h5,
+.color_emerald_theme .service_single_item a:hover,
+.color_emerald_theme .breadcrumb.banner_breadcrumb a:hover,
+.color_emerald_theme .benefit_content .themex_btn{
+    color: #2ecc71;
+}
+
+/*==========================
+      Background Color
+==========================*/
+.color_emerald_theme .themex_btn,
+.color_emerald_theme nav.navigation-area,
+.color_emerald_theme .navigation-area .navbar-nav li .dropdown_menu a:hover,
+.color_emerald_theme .pogoSlider-nav-btn--selected,
+.color_emerald_theme .overlay,
+.color_emerald_theme .service_col.active .service_title,
+.color_emerald_theme .service_col.active .overlay,
+.color_emerald_theme .owl-prev, 
+.color_emerald_theme .owl-next,
+.color_emerald_theme .mixitup-control ul li.active::after,
+.color_emerald_theme .overlay_content > a:hover,
+.color_emerald_theme .portfolio_footer,
+.color_emerald_theme .member_link a:hover,
+.color_emerald_theme #testimonial::after,
+.color_emerald_theme .post_date li:last-child a,
+.color_emerald_theme .blog_image:hover .post_date li:first-child a,
+.color_emerald_theme .blog_content .themex_btn:hover,
+.color_emerald_theme .ScrollToTop a,
+.color_emerald_theme .tag_list a:hover,
+.color_emerald_theme .blog_pagination .pagination a:hover,
+.color_emerald_theme .service_single_item:hover .s_icon,
+.color_emerald_theme #benefit,
+.color_emerald_theme .like_box a:hover i.fa,
+.color_emerald_theme .priceing_header,
+.color_emerald_theme .spinner > div{
+  background-color: #2ecc71;
+}
+
+/*==========================
+      Border Color
+==========================*/
+.color_emerald_theme .themex_btn:hover,
+.color_emerald_theme .slider-content .themex_btn:hover,
+.color_emerald_theme .blog_content .themex_btn,
+.color_emerald_theme .blog_sidebar .search_box input:focus,
+.color_emerald_theme .blog_post_content .themex_btn:hover,
+.color_emerald_theme .subscribe_form .btn.btn-default:hover, 
+.color_emerald_theme .comment_form .themex_btn:hover,
+.color_emerald_theme .contact_us_form .themex_btn:hover,
+.color_emerald_theme .s_icon{
+  border: 1px solid #2ecc71;
+}
+.color_emerald_theme .ScrollToTop {
+  border: 2px solid #2ecc71;
+}
+.color_emerald_theme .comment_form .form-control:focus,
+.color_emerald_theme .subscribe_form .form-control:focus, 
+.color_emerald_theme .contact_us_form .form-control:focus{
+  border-color: #2ecc71;
+}
+
+/*
+  Start Amethyst Template Color
+========================================= */
+/*===========================
+          Color
+===========================*/
+.color_amethyst_theme .panel_button,
+.color_amethyst_theme .themex_btn:hover,
+.color_amethyst_theme .header-top-bar p i.fa,
+.color_amethyst_theme .social-icon ul li a:hover,
+.color_amethyst_theme .slider-content h2 span,
+.color_amethyst_theme .slider-content .themex_btn:hover,
+.color_amethyst_theme .section_header h2 span,
+.color_amethyst_theme .mixitup-control ul li.active,
+.color_amethyst_theme .overlay_content > a,
+.color_amethyst_theme .portfolio_footer .themex_btn:hover,
+.color_amethyst_theme .teamMemberProfile:hover h3,
+.color_amethyst_theme .post_date li:first-child a,
+.color_amethyst_theme .blog_image:hover .post_date li:last-child a,
+.color_amethyst_theme .blog_content h4 a:hover,
+.color_amethyst_theme .blog_content h5 a:hover,
+.color_amethyst_theme .blog_content h5 i.fa,
+.color_amethyst_theme .blog_content .themex_btn,
+.color_amethyst_theme .widget a:hover,
+.color_amethyst_theme .copy_right a,
+.color_amethyst_theme .banner_title h1,
+.color_amethyst_theme .breadcrumb.banner_breadcrumb li,
+.color_amethyst_theme .sidebar_title,
+.color_amethyst_theme .catagories a:hover,
+.color_amethyst_theme .recentPost .recent_post span a,
+.color_amethyst_theme .recentPost .recent_post a:hover,
+.color_amethyst_theme .blog_post_content li a i.fa,
+.color_amethyst_theme .blog_post_content a:hover,
+.color_amethyst_theme .about_content_right h5,
+.color_amethyst_theme .about_content_right li::before,
+.color_amethyst_theme .s_icon,
+.color_amethyst_theme .service_single_item:hover h5,
+.color_amethyst_theme .service_single_item a:hover,
+.color_amethyst_theme .breadcrumb.banner_breadcrumb a:hover,
+.color_amethyst_theme .benefit_content .themex_btn{
+    color: #9b59b6;
+}
+
+/*==========================
+      Background Color
+==========================*/
+.color_amethyst_theme .themex_btn,
+.color_amethyst_theme nav.navigation-area,
+.color_amethyst_theme .navigation-area .navbar-nav li .dropdown_menu a:hover,
+.color_amethyst_theme .pogoSlider-nav-btn--selected,
+.color_amethyst_theme .overlay,
+.color_amethyst_theme .service_col.active .service_title,
+.color_amethyst_theme .service_col.active .overlay,
+.color_amethyst_theme .owl-prev, 
+.color_amethyst_theme .owl-next,
+.color_amethyst_theme .mixitup-control ul li.active::after,
+.color_amethyst_theme .overlay_content > a:hover,
+.color_amethyst_theme .portfolio_footer,
+.color_amethyst_theme .member_link a:hover,
+.color_amethyst_theme #testimonial::after,
+.color_amethyst_theme .post_date li:last-child a,
+.color_amethyst_theme .blog_image:hover .post_date li:first-child a,
+.color_amethyst_theme .blog_content .themex_btn:hover,
+.color_amethyst_theme .ScrollToTop a,
+.color_amethyst_theme .tag_list a:hover,
+.color_amethyst_theme .blog_pagination .pagination a:hover,
+.color_amethyst_theme .service_single_item:hover .s_icon,
+.color_amethyst_theme #benefit,
+.color_amethyst_theme .like_box a:hover i.fa,
+.color_amethyst_theme .priceing_header,
+.color_amethyst_theme .spinner > div{
+  background-color: #9b59b6;
+}
+
+/*==========================
+      Border Color
+==========================*/
+.color_amethyst_theme .themex_btn:hover,
+.color_amethyst_theme .slider-content .themex_btn:hover,
+.color_amethyst_theme .blog_content .themex_btn,
+.color_amethyst_theme .blog_sidebar .search_box input:focus,
+.color_amethyst_theme .blog_post_content .themex_btn:hover,
+.color_amethyst_theme .subscribe_form .btn.btn-default:hover, 
+.color_amethyst_theme .comment_form .themex_btn:hover,
+.color_amethyst_theme .contact_us_form .themex_btn:hover,
+.color_amethyst_theme .s_icon{
+  border: 1px solid #9b59b6;
+}
+.color_amethyst_theme .ScrollToTop {
+  border: 2px solid #9b59b6;
+}
+.color_amethyst_theme .comment_form .form-control:focus,
+.color_amethyst_theme .subscribe_form .form-control:focus, 
+.color_amethyst_theme .contact_us_form .form-control:focus{
+  border-color: #9b59b6;
+}
+
+/*
+  Start Turquoise Template Color
+========================================= */
+/*===========================
+          Color
+===========================*/
+.color_turquoise_theme .panel_button,
+.color_turquoise_theme .themex_btn:hover,
+.color_turquoise_theme .header-top-bar p i.fa,
+.color_turquoise_theme .social-icon ul li a:hover,
+.color_turquoise_theme .slider-content h2 span,
+.color_turquoise_theme .slider-content .themex_btn:hover,
+.color_turquoise_theme .section_header h2 span,
+.color_turquoise_theme .mixitup-control ul li.active,
+.color_turquoise_theme .overlay_content > a,
+.color_turquoise_theme .portfolio_footer .themex_btn:hover,
+.color_turquoise_theme .teamMemberProfile:hover h3,
+.color_turquoise_theme .post_date li:first-child a,
+.color_turquoise_theme .blog_image:hover .post_date li:last-child a,
+.color_turquoise_theme .blog_content h4 a:hover,
+.color_turquoise_theme .blog_content h5 a:hover,
+.color_turquoise_theme .blog_content h5 i.fa,
+.color_turquoise_theme .blog_content .themex_btn,
+.color_turquoise_theme .widget a:hover,
+.color_turquoise_theme .copy_right a,
+.color_turquoise_theme .banner_title h1,
+.color_turquoise_theme .breadcrumb.banner_breadcrumb li,
+.color_turquoise_theme .sidebar_title,
+.color_turquoise_theme .catagories a:hover,
+.color_turquoise_theme .recentPost .recent_post span a,
+.color_turquoise_theme .recentPost .recent_post a:hover,
+.color_turquoise_theme .blog_post_content li a i.fa,
+.color_turquoise_theme .blog_post_content a:hover,
+.color_turquoise_theme .about_content_right h5,
+.color_turquoise_theme .about_content_right li::before,
+.color_turquoise_theme .s_icon,
+.color_turquoise_theme .service_single_item:hover h5,
+.color_turquoise_theme .service_single_item a:hover,
+.color_turquoise_theme .breadcrumb.banner_breadcrumb a:hover,
+.color_turquoise_theme .benefit_content .themex_btn{
+    color: #1abc9c;
+}
+
+/*==========================
+      Background Color
+==========================*/
+.color_turquoise_theme .themex_btn,
+.color_turquoise_theme nav.navigation-area,
+.color_turquoise_theme .navigation-area .navbar-nav li .dropdown_menu a:hover,
+.color_turquoise_theme .pogoSlider-nav-btn--selected,
+.color_turquoise_theme .overlay,
+.color_turquoise_theme .service_col.active .service_title,
+.color_turquoise_theme .service_col.active .overlay,
+.color_turquoise_theme .owl-prev, 
+.color_turquoise_theme .owl-next,
+.color_turquoise_theme .mixitup-control ul li.active::after,
+.color_turquoise_theme .overlay_content > a:hover,
+.color_turquoise_theme .portfolio_footer,
+.color_turquoise_theme .member_link a:hover,
+.color_turquoise_theme #testimonial::after,
+.color_turquoise_theme .post_date li:last-child a,
+.color_turquoise_theme .blog_image:hover .post_date li:first-child a,
+.color_turquoise_theme .blog_content .themex_btn:hover,
+.color_turquoise_theme .ScrollToTop a,
+.color_turquoise_theme .tag_list a:hover,
+.color_turquoise_theme .blog_pagination .pagination a:hover,
+.color_turquoise_theme .service_single_item:hover .s_icon,
+.color_turquoise_theme #benefit,
+.color_turquoise_theme .like_box a:hover i.fa,
+.color_turquoise_theme .priceing_header,
+.color_turquoise_theme .spinner > div{
+  background-color: #1abc9c;
+}
+
+/*==========================
+      Border Color
+==========================*/
+.color_turquoise_theme .themex_btn:hover,
+.color_turquoise_theme .slider-content .themex_btn:hover,
+.color_turquoise_theme .blog_content .themex_btn,
+.color_turquoise_theme .blog_sidebar .search_box input:focus,
+.color_turquoise_theme .blog_post_content .themex_btn:hover,
+.color_turquoise_theme .subscribe_form .btn.btn-default:hover, 
+.color_turquoise_theme .comment_form .themex_btn:hover,
+.color_turquoise_theme .contact_us_form .themex_btn:hover,
+.color_turquoise_theme .s_icon{
+  border: 1px solid #1abc9c;
+}
+.color_turquoise_theme .ScrollToTop {
+  border: 2px solid #1abc9c;
+}
+.color_turquoise_theme .comment_form .form-control:focus,
+.color_turquoise_theme .subscribe_form .form-control:focus, 
+.color_turquoise_theme .contact_us_form .form-control:focus{
+  border-color: #1abc9c;
+}
+/*
+  Start Sun Flower Template Color
+========================================= */
+/*===========================
+          Color
+===========================*/
+.color_alizarin_theme .panel_button,
+.color_alizarin_theme .themex_btn:hover,
+.color_alizarin_theme .header-top-bar p i.fa,
+.color_alizarin_theme .social-icon ul li a:hover,
+.color_alizarin_theme .slider-content h2 span,
+.color_alizarin_theme .slider-content .themex_btn:hover,
+.color_alizarin_theme .section_header h2 span,
+.color_alizarin_theme .mixitup-control ul li.active,
+.color_alizarin_theme .overlay_content > a,
+.color_alizarin_theme .portfolio_footer .themex_btn:hover,
+.color_alizarin_theme .teamMemberProfile:hover h3,
+.color_alizarin_theme .post_date li:first-child a,
+.color_alizarin_theme .blog_image:hover .post_date li:last-child a,
+.color_alizarin_theme .blog_content h4 a:hover,
+.color_alizarin_theme .blog_content h5 a:hover,
+.color_alizarin_theme .blog_content h5 i.fa,
+.color_alizarin_theme .blog_content .themex_btn,
+.color_alizarin_theme .widget a:hover,
+.color_alizarin_theme .copy_right a,
+.color_alizarin_theme .banner_title h1,
+.color_alizarin_theme .breadcrumb.banner_breadcrumb li,
+.color_alizarin_theme .sidebar_title,
+.color_alizarin_theme .catagories a:hover,
+.color_alizarin_theme .recentPost .recent_post span a,
+.color_alizarin_theme .recentPost .recent_post a:hover,
+.color_alizarin_theme .blog_post_content li a i.fa,
+.color_alizarin_theme .blog_post_content a:hover,
+.color_alizarin_theme .about_content_right h5,
+.color_alizarin_theme .about_content_right li::before,
+.color_alizarin_theme .s_icon,
+.color_alizarin_theme .service_single_item:hover h5,
+.color_alizarin_theme .service_single_item a:hover,
+.color_alizarin_theme .breadcrumb.banner_breadcrumb a:hover,
+.color_alizarin_theme .benefit_content .themex_btn{
+    color: #d35400;
+}
+
+/*==========================
+      Background Color
+==========================*/
+.color_alizarin_theme .themex_btn,
+.color_alizarin_theme nav.navigation-area,
+.color_alizarin_theme .navigation-area .navbar-nav li .dropdown_menu a:hover,
+.color_alizarin_theme .pogoSlider-nav-btn--selected,
+.color_alizarin_theme .overlay,
+.color_alizarin_theme .service_col.active .service_title,
+.color_alizarin_theme .service_col.active .overlay,
+.color_alizarin_theme .owl-prev, 
+.color_alizarin_theme .owl-next,
+.color_alizarin_theme .mixitup-control ul li.active::after,
+.color_alizarin_theme .overlay_content > a:hover,
+.color_alizarin_theme .portfolio_footer,
+.color_alizarin_theme .member_link a:hover,
+.color_alizarin_theme #testimonial::after,
+.color_alizarin_theme .post_date li:last-child a,
+.color_alizarin_theme .blog_image:hover .post_date li:first-child a,
+.color_alizarin_theme .blog_content .themex_btn:hover,
+.color_alizarin_theme .ScrollToTop a,
+.color_alizarin_theme .tag_list a:hover,
+.color_alizarin_theme .blog_pagination .pagination a:hover,
+.color_alizarin_theme .service_single_item:hover .s_icon,
+.color_alizarin_theme #benefit,
+.color_alizarin_theme .like_box a:hover i.fa,
+.color_alizarin_theme .priceing_header,
+.color_alizarin_theme .spinner > div{
+  background-color: #d35400;
+}
+
+/*==========================
+      Border Color
+==========================*/
+.color_alizarin_theme .themex_btn:hover,
+.color_alizarin_theme .slider-content .themex_btn:hover,
+.color_alizarin_theme .blog_content .themex_btn,
+.color_alizarin_theme .blog_sidebar .search_box input:focus,
+.color_alizarin_theme .blog_post_content .themex_btn:hover,
+.color_alizarin_theme .subscribe_form .btn.btn-default:hover, 
+.color_alizarin_theme .comment_form .themex_btn:hover,
+.color_alizarin_theme .contact_us_form .themex_btn:hover,
+.color_alizarin_theme .s_icon{
+  border: 1px solid #d35400;
+}
+.color_alizarin_theme .ScrollToTop {
+  border: 2px solid #d35400;
+}
+.color_alizarin_theme .comment_form .form-control:focus,
+.color_alizarin_theme .subscribe_form .form-control:focus, 
+.color_alizarin_theme .contact_us_form .form-control:focus{
+  border-color: #d35400;
+}
+

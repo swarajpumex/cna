@@ -1,0 +1,2 @@
+<div class="alert alert-danger divError" style="margin-top:5px; text-align:left; display:none;" id="divError" name="divError"></div>
+<div class="alert alert-success divMessage" style="margin-top:5px; text-align:left; display:none;" id="divMessage" name="divMessage"></div>

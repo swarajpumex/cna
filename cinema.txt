@@ -1,0 +1,1414 @@
+﻿-- phpMyAdmin SQL Dump
+-- version 3.3.9
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: May 03, 2019 at 06:08 AM
+-- Server version: 5.5.8
+-- PHP Version: 5.3.5
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `cinema`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `advertise`
+--
+
+CREATE TABLE IF NOT EXISTS `advertise` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `Photo` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  `Name` varchar(225) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `advertise`
+--
+
+INSERT INTO `advertise` (`Id`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `LoginStatus`, `Photo`, `ActivatedOn`, `InActivatedOn`, `Name`) VALUES
+(6, 'Active', 'admin', '2019-04-20 16:43:09', NULL, NULL, 0, 'cef99f0ad75d9f1834b1856dc143a414.jpg', '2019-04-20 16:43:09', NULL, 'a1'),
+(8, 'Active', 'admin', '2019-04-24 12:39:08', 'admin', '2019-04-29', 0, '551c3cfdef5ad32c918ecc1abd59278d.jpg', '2019-04-29 14:50:19', NULL, 'a65');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `article_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `article_tb` (
+  `Id` int(55) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(225) NOT NULL,
+  `Details` varchar(225) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `article_tb`
+--
+
+INSERT INTO `article_tb` (`Id`, `Title`, `Details`) VALUES
+(1, 'ddddd', '<p>dfffffffff</p>\n'),
+(2, 'ddddd', '<p><strong>dggggggggg</strong></p>\n'),
+(3, 'ddddd', '<ol>\n	<li><strong>dggggggggg</strong></li>\n	<li><strong>kjjjjjjj</strong></li>\n	<li><strong>yyyyyyyyyyy</strong></li>\n	<li><strong>tg</strong></li>\n</ol>\n'),
+(4, 'ddddd', '<ol>\n	<li><strong>dggggggggg</strong></li>\n	<li><strong>kjjjjjjj</strong></li>\n	<li><strong>yyyyyyyyyyy</strong></li>\n	<li><strong>tg<a href="http://kjjjjjjjjj">http://kjjjjjjjjj</a></strong></li>\n</ol>\n'),
+(5, 'ddddd', '<ol>\n	<li><strong>dggggggggg</strong></li>\n	<li><strong>kjjjjjjj</strong></li>\n	<li><strong>yyyyyyyyyyy</strong></li>\n</ol>\n\n<blockquote>\n<p><strong>tg<a href="http://kjjjjjjjjj">http://kjjjjjjjjj</a></strong></p>\n</blockquot'),
+(6, 'ki', '<p>llllll</p>\n'),
+(7, ']]]]]]', '<p>llllllll</p>\n'),
+(8, 'ddddd', '<p>gffff</p>\n'),
+(9, 'fffff', '<p>fffffff</p>\n');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `boxoffice`
+--
+
+CREATE TABLE IF NOT EXISTS `boxoffice` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `FilmId` varchar(255) NOT NULL,
+  `FilmName` varchar(225) NOT NULL,
+  `Boxoffice` varchar(225) NOT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `Category` enum('Release','Upcoming') DEFAULT NULL,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `boxoffice`
+--
+
+INSERT INTO `boxoffice` (`Id`, `FilmId`, `FilmName`, `Boxoffice`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `Category`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, '1', 'Oru Yamandan Prema Kadha', '6Cr', 'Active', 'admin', '2019-04-26 13:08:25', NULL, NULL, NULL, '2019-04-26 13:08:25', NULL),
+(2, '2', 'Athiran', '10cr', 'Active', 'admin', '2019-04-26 14:38:06', 'admin', '2019-04-29', NULL, '2019-04-29 10:31:34', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cast_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `cast_tb` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(225) NOT NULL,
+  `FilmId` varchar(55) NOT NULL,
+  `FilmName` varchar(255) NOT NULL,
+  `Details` text NOT NULL,
+  `LastLoginDate` datetime DEFAULT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LastLoginIP` varchar(50) DEFAULT NULL,
+  `status1` enum('Release','Upcoming') DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `Photo` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `cast_tb`
+--
+
+INSERT INTO `cast_tb` (`Id`, `Name`, `FilmId`, `FilmName`, `Details`, `LastLoginDate`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `LastLoginIP`, `status1`, `LoginStatus`, `Photo`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, 'Dhulkar Salman', '1', 'Oru Yamandan Prema Kadha', 'Actor', NULL, 'Active', 'admin', '2019-04-26 12:49:25', NULL, NULL, NULL, NULL, 0, '54ffb68e074a0d57278fdd74f5080f78.jpg', '2019-04-26 12:49:25', NULL),
+(2, 'Nikhila', '1', 'Oru Yamandan Prema Kadha', 'Actress', NULL, 'Active', 'admin', '2019-04-26 12:53:03', NULL, NULL, NULL, NULL, 0, 'f42e8a429dd10be10763f2434f360bcb.jpg', '2019-04-26 12:53:03', NULL),
+(3, 'Fahad fazil', '2', 'Athiran', 'Actor', NULL, 'Active', 'admin', '2019-04-26 14:34:45', NULL, NULL, NULL, NULL, 0, '557879ee76d386f803b979a1c984d1bd.jpg', '2019-04-26 14:34:45', NULL),
+(4, 'Sai Pallavi', '2', 'Athiran', 'Actress', NULL, 'Active', 'admin', '2019-04-26 14:35:17', NULL, NULL, NULL, NULL, 0, '6f41cbd7dbcdea97c198464c29dbc58c.jpg', '2019-04-26 14:35:17', NULL),
+(6, 'Linda Cardellini', '7', 'The Curse Of The Weeping Woman', 'Actress', NULL, 'Active', 'admin', '2019-04-29 14:03:05', NULL, NULL, NULL, NULL, 0, 'c6d14d887a81cdb09ff79cbc01528c8a.jpg', '2019-04-29 14:03:05', NULL),
+(7, 'Linda Cardellini', '7', 'The Curse Of The Weeping Woman', 'Actress', NULL, 'Inactive', 'admin', '2019-04-29 14:03:53', 'admin', '2019-04-29', NULL, NULL, 0, 'cb019c48ba6759a5a76bcb2ca2931b2a.jpg', NULL, '2019-04-29 14:46:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `film_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `film_tb` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `FilmName` varchar(255) NOT NULL,
+  `Language` varchar(225) NOT NULL,
+  `Details` varchar(150) NOT NULL,
+  `LastLoginDate` datetime DEFAULT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LastLoginIP` varchar(50) DEFAULT NULL,
+  `Category` enum('Release','Upcoming') DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `Photo` text,
+  `Image` varchar(225) NOT NULL,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `film_tb`
+--
+
+INSERT INTO `film_tb` (`Id`, `FilmName`, `Language`, `Details`, `LastLoginDate`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `LastLoginIP`, `Category`, `LoginStatus`, `Photo`, `Image`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, 'Oru Yamandan Prema Kadha', 'Malayalam', 'A complete entertainer with elements of romance, comedy and action', NULL, 'Active', 'admin', '2019-04-26 12:47:12', NULL, NULL, NULL, 'Release', 0, '4e588398866a3319245d22226a7a40eb_thumb.jpg', '4e588398866a3319245d22226a7a40eb.jpg', '2019-04-26 12:47:10', NULL),
+(2, 'Athiran', 'Malayalam', 'A psychiatrist makes a startling discovery when he investigates an autistic patient', NULL, 'Active', 'admin', '2019-04-26 14:33:44', 'admin', '2019-04-29', NULL, 'Release', 0, '23b046ab5fc560de96df0c17db34b8d9_thumb.jpg', '23b046ab5fc560de96df0c17db34b8d9.jpg', '2019-04-29 12:59:50', NULL),
+(7, 'The Curse Of The Weeping Woman', 'English', 'When the lives of her children are endangered by an evil spirit, ', NULL, 'Active', 'admin', '2019-04-29 14:00:21', NULL, NULL, NULL, 'Release', 0, 'f5dd1bbecdbd9cdc5c877a5fdd0aea7f_thumb.jpg', 'f5dd1bbecdbd9cdc5c877a5fdd0aea7f.jpg', '2019-04-29 14:00:20', NULL),
+(8, 'dgfh', 'English', 'fffff', NULL, 'Active', 'admin', '2019-04-30 16:58:55', NULL, NULL, NULL, 'Release', 0, '921cbbfc9cce0d5f647413a38c614a1a_thumb.jpg', '921cbbfc9cce0d5f647413a38c614a1a.jpg', '2019-04-30 16:58:54', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flashnews`
+--
+
+CREATE TABLE IF NOT EXISTS `flashnews` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `Flashnews` text NOT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `flashnews`
+--
+
+INSERT INTO `flashnews` (`Id`, `Flashnews`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, 'Prithviraj Sukumaran is an Indian film actor, producer, playback singer, and director, who predominantly works in the Malayalam film industry. Additionally, he has also worked in Bollywood, Tamil, and Telugu film industries.', 'Active', 'admin', '2019-04-17 12:25:59', NULL, NULL, '2019-04-17 12:25:59', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interview_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `interview_tb` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(255) NOT NULL,
+  `Details` text NOT NULL,
+  `CoverImage` varchar(225) NOT NULL,
+  `Image` varchar(225) NOT NULL,
+  `Link` text NOT NULL,
+  `Description` text NOT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `interview_tb`
+--
+
+INSERT INTO `interview_tb` (`Id`, `Title`, `Details`, `CoverImage`, `Image`, `Link`, `Description`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, 'Chat with Dulquer Salman', '<p><img alt="" src="http://cna-local.com/uploads/images/755de29f24969640f9f4bf2f7ae37baa.jpg" style="height:500px; margin:30px 20px; width:750px" /></p>\n\n<p>&nbsp;</p>\n\n<p>Catching Dulquer Salmaan for a chat is a hard task. Waltzing between shoots, film promos and his beloved daughter, the star, by his own admission, has never been so busy.</p>\n\n<p>With his career&#39;s biggest film&nbsp;<em>Solo&nbsp;</em>set to release&nbsp;on Thursday, Dulquer finally found some time to speak to TNM - about his films, fatherhood, and the secret of Mammootty&#39;s youth.&nbsp;</p>\n\n<p><strong>You&#39;re playing four characters in&nbsp;Solo. How difficult was it to get under the skin of each one?</strong></p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<p>We treated each part to be a different movie. We had different crew, different DoPs...except Bejoy and me, we kept changing everything else. So we kept approaching each part like it was a different movie. The guy with the stutter, Shekar&#39;s character (the one with Dhansika), he has long hair, he looks bigger than the others. He walks differently. The stammer and the hair itself made me go with a different body language.<img alt="" src="http://cna-local.com/uploads/images/94b90d3f074dddcdb6e997e24807bd00.jpg" style="border-style:solid; border-width:20px; height:433px; margin-left:30px; margin-right:30px; width:649px" /></p>\n\n<p>&nbsp;</p>\n\n<p>Shiva, the one who seems violent, is a little more internal...all his processes are internal. He&#39;s very silent. He has a lot of anger issues. Bejoy designed the stories in different ways. Each of the protagonists feels different. We would brainstorm before each film, how to differentiate this guy...by the time we got to the final character, we&#39;d done the first three parts.&nbsp;</p>\n\n<p>We had to think about how to really differentiate him from others. So, we decided that he&#39;d be a guy who is not easily likable. He enters a room and he pisses everybody off. He&#39;s aggressive by default. I&#39;m hoping all of this is translated to the screen and I&#39;m waiting for all of you to watch the film and tell me if it did!</p>\n\n<p><strong>Didn&#39;t you play a guy with anger issues in&nbsp;<em>Kali&nbsp;</em>as well?</strong></p>\n\n<p>Yeah, but that&#39;s something he didn&#39;t have control over. In the sense, he personally doesn&#39;t want to be angry. The temper issue is out of his control.&nbsp;<em>Solo&nbsp;</em>is not like that.</p>\n\n<p><strong>You were there for less than 30 minutes in your last film&nbsp;<em>Parava</em>. We don&#39;t see big stars from other industries in the south taking up such roles. What made you say &lsquo;yes&rsquo;?</strong></p>\n\n<p>Honestly, I don&#39;t think we see ourselves as stars. That&#39;s what the media tags us as. I personally don&#39;t think too much about it.&nbsp;<em>Parava&nbsp;</em>in my head was always a film about children. And I was like, if I can be part of the film and help promote it in some way or the other, I&#39;d be very happy. I also did&nbsp;<em>Ann Maria</em>&nbsp;because it was a story about kids.</p>\n\n<p>The problem is when you make a film with kids, you may not have known faces for it to reach as many people. Only the hardcore movie lovers and enthusiasts will go and watch it. I think every other known cast member of&nbsp;<em>Parava&nbsp;</em>was delighted that someone was attempting to make a film like this. I didn&#39;t care what my screen time in it was, honestly.&nbsp;</p>\n\n<blockquote>\n<p><strong>I always think I want to be part of the best films of the year and that vision is always there. I don&#39;t do films for my stardom. I&#39;m always open to stuff like this. The film is the hero and the script is the hero. If the film is good, everyone wins. If the film is bad, we all take a hit. If I&#39;m a part of&nbsp;<em>Parava&nbsp;</em>and it has done well, I&#39;m also benefiting from it. It&#39;s not like I&#39;m helping them, they are helping me.&nbsp;</strong></p>\n</blockquote>\n\n<p><strong>Speaking of children, how are you enjoying fatherhood in the middle of this hectic schedule?</strong></p>\n', '9ec2bd326e8ba3f18e432347cbb4bfae_thumb.jpg', '9ec2bd326e8ba3f18e432347cbb4bfae.jpg', 'https://youtu.be/19ZvwcNxhoU', 'I I still remember watching Kerala Cafe back in 2009. In one of the episodes ‘Mrityunjayanam’,a man knocks at Thilakan’s door and after a few minutes, a friend with whom I was watching the movie asked', 'Active', NULL, '2019-04-26 14:09:27', NULL, NULL, NULL, NULL),
+(6, 'Mohanlal', '<p>fffffff</p>\n', '1ef52ec0b0aaece55822173847e120e4_thumb.jpg', '1ef52ec0b0aaece55822173847e120e4.jpg', 'hhhhh', 'I still remember watching Kerala Cafe back in 2009. In one of the episodes ‘Mrityunjayanam’,a man knocks at Thilakan’s door and after a few minutes, a friend with whom I was watching the movie asked –', 'Active', NULL, '2019-04-30 16:55:20', NULL, NULL, NULL, NULL),
+(7, 'tovino', '', '6136a6381f4fc720bf317467b57ccaf0_thumb.jpg', '6136a6381f4fc720bf317467b57ccaf0.jpg', 'ffff', 'I I still remember watching Kerala Cafe back in 2009. In one of the episodes ‘Mrityunjayanam’,a man knocks at Thilakan’s door and after a few minutes, a friend with whom I was watching the movie asked', 'Active', NULL, '2019-04-30 17:01:05', NULL, NULL, NULL, NULL),
+(10, 'hhhh', '<p>jjjjjj</p>\n', '73974e8d972db029bf4a2f8d7036dbcd_thumb.jpg', '73974e8d972db029bf4a2f8d7036dbcd.jpg', 'jjjj', 'jjjjj', 'Active', NULL, '2019-05-01 11:55:26', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `language`
+--
+
+CREATE TABLE IF NOT EXISTS `language` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `Language` varchar(225) NOT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `language`
+--
+
+INSERT INTO `language` (`Id`, `Language`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `ActivatedOn`, `InActivatedOn`) VALUES
+(4, 'English', 'Active', 'admin', '2019-04-10 12:32:44', 'admin', '2019-04-25', '2019-04-25 15:56:47', NULL),
+(9, 'Malayalam', 'Active', 'admin', '2019-04-16 15:49:47', NULL, NULL, '2019-04-16 15:49:47', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE IF NOT EXISTS `login` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `UserId` varchar(255) NOT NULL,
+  `Password` text NOT NULL COMMENT 'encrypted',
+  `UserGropId` bigint(11) NOT NULL,
+  `UserType` varchar(100) NOT NULL,
+  `LastLoginDate` datetime DEFAULT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LastLoginIP` varchar(50) DEFAULT NULL,
+  `Sex` enum('Female','Male') DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `ProfilePhoto` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`Id`, `UserId`, `Password`, `UserGropId`, `UserType`, `LastLoginDate`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `LastLoginIP`, `Sex`, `DOB`, `LoginStatus`, `ProfilePhoto`, `ActivatedOn`, `InActivatedOn`) VALUES
+(11, 'shameel', 'ea4634b8c5a7898264a58be6d3fb50ac3d7c2b7e6d8adad', 1, 'ADMIN', '2019-04-17 13:42:46', 'Active', 'shameelsalih', '2016-07-26 23:20:46', 'shameel', '2018-06-21', '127.0.0.1', 'Male', NULL, 1, '9ee4df05879d17db9aaed7f116c2b039.jpg', '2018-06-21 12:43:45', NULL),
+(12, 'MMK', 'ea4634b806e3f2ad31030bc14b6abdb6ac64c90f6361ba1', 1, 'ADMIN', '2018-09-04 16:15:58', 'Active', 'shameel', '2018-09-04 16:15:37', NULL, NULL, '127.0.0.1', 'Male', NULL, 1, 'd082bad7629d3a3fedd45698eec77d67.png', '2018-09-04 16:15:37', NULL),
+(14, 'admin', 'ea4634b361a2d55564fd46944c270870cab45e4571004dd', 1, 'ADMIN', '2019-05-01 10:57:57', 'Active', 'shameel', '2019-04-03 11:10:26', NULL, NULL, '127.0.0.1', 'Female', NULL, 1, 'user_default_female.png', '2019-04-03 11:10:26', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(255) NOT NULL,
+  `Details` text NOT NULL,
+  `CoverImage` varchar(225) NOT NULL,
+  `Image` varchar(225) NOT NULL,
+  `Link` varchar(225) NOT NULL,
+  `Description` text NOT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `Photo` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`Id`, `Title`, `Details`, `CoverImage`, `Image`, `Link`, `Description`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `Photo`, `ActivatedOn`, `InActivatedOn`) VALUES
+(6, 'ORU YAMANDAN PREMA KADHA ', '<p><strong>Review:&nbsp;</strong>After his two-year-long break from Malayalam, during which he earned a name for himself in other industries, Dulquer Salmaan is back. Right from the outset, it was clear that he was keen to try something new in his comeback movie, &lsquo;Oru Yamandan Premakadha&rsquo;. And here&#39;s how it has fared.<br />\n<br />\nThe film is about a handful of &#39;katta&rsquo; friends who have been together since childhood. Lallu (Dulquer Salmaan) is the king of this group of &#39;low class&rsquo; youngsters, if you look at them through his dad&#39;s eyes. The good-looking fellow has received umpteen proposals from girls since childhood but as he says, he hasn&#39;t felt the spark yet. His family decides to get him married off, as his IT professional younger brother wants to get hitched. But, where to find this girl?<br />\n<br />\nFirst things first. It&rsquo;s a film primarily for Dulquer fans. His character, Lallu, is a wayward youth who is a daily wage painter, surrounded by comedy characters played by Soubin Shahir (Vicky), Vishnu Unnikrishnan (Teny) and Salim Kumar (Panchikuttan). It offers roars of laughter in many instances, but no highbrow comedy. The premise in itself might not be new, but the makers have managed to keep it quite entertaining.</p>\n\n<p><img alt="" src="http://cna-local.com/uploads/images/695d00bfd5e2e32f21f96416a272e716.jpg" style="border-style:solid; border-width:2px; height:503px; margin:10px; width:800px" /><br />\nThe narrative takes a detour at times with certain songs delaying the story, but the tracks are good. Dulquer speaks in Kochi slang, dances to dappankuthu songs, is flanked by girls often and delivers comedy liners, all of them in a manner that would definitely be thrilling for a kunjikka fan. It also has what it takes to make the fans overlook its occasional flaws. Molly Kannammali, Soubin, Salim Kumar, Vishnu and Pradeep Kottayam immensely contribute to the many fun moments in the movie and they keep the audience interested. It also looks like many phrases from the film could pass into daily slang. The humour involving non-Malayali workers is also interesting.<br />\n<br />\nThe film&#39;s heroines hardly have any space to perform in the film, which is an out-and-out DQ show. A Tollywood feel is squeezed into many sequences, without much effect. Bibin George could have been better used as a villain in the movie which stretches on to 2 hours 40 minutes. Exhaustion seeps in at times, especially during songs and long stunts.</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n', '1fb376733d28fdf1c43db2b138984345_thumb.jpg', '1fb376733d28fdf1c43db2b138984345.jpg', 'https://youtu.be/BdrKNEXi2Q0', 'The film is about a handful of ''katta’ friends who have been together since childhood. Lallu (Dulquer Salmaan) is the king of this group of ''low class’ youngsters, if you look at them through his dad''', 'Active', NULL, '2019-04-26 14:29:30', NULL, NULL, NULL, NULL, NULL),
+(8, 'ATHIRAN', '<p>ggggggggggg</p>\n', 'fd1b45aa8b2c62a1af662d6a44854d48_thumb.jpg', 'fd1b45aa8b2c62a1af662d6a44854d48.jpg', 'ggh', 'The film is about a handful of ''katta’ friends who have been together since childhood. Lallu (Dulquer Salmaan) is the king of this group of ''low class’ youngsters, if you look at them through his dad''', 'Active', NULL, '2019-04-26 16:51:56', NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roundup`
+--
+
+CREATE TABLE IF NOT EXISTS `roundup` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(255) NOT NULL,
+  `Details` text NOT NULL,
+  `CoverImage` varchar(225) NOT NULL,
+  `Image` varchar(225) NOT NULL,
+  `Link` text NOT NULL,
+  `Description` text NOT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `roundup`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `Id` int(11) NOT NULL DEFAULT '0',
+  `About` text,
+  `Vision` text,
+  `Mission` text,
+  `Quality` text,
+  `Name` varchar(200) DEFAULT NULL,
+  `Message` text,
+  `FooterAbout` text,
+  `AboutImage` text,
+  `MDImage` text,
+  `Contact` text,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`Id`, `About`, `Vision`, `Mission`, `Quality`, `Name`, `Message`, `FooterAbout`, `AboutImage`, `MDImage`, `Contact`) VALUES
+(1, 'SAC, marks the dawn of a new teaching- learning culture in computer methodology. We stand apart from the other computer training centers by virtue of our ability to evolve a curriculum that is current, update and unique. It could incorporate the latest technological innovations in imparting training. SAC has successfully implemented a new learning methodology, replacing the traditional way of reading and mugging up things with little practical industry exposure. The new tentative and effective learning package developed by SAC combining an updated curriculum, rich pool of experienced teachers and innovative methodology are certainly assets to the students. The Midas touch of SAC has transformed the complex and intriguing process of learning into an enjoyable and exhilarating experience.', 'To be pioneer and innovative in the IT sector by creating miracles through the most sophisticated technologies with the able assistance of veteran professionals who are the benchmark of SAC Computer Academy.', 'SAC aims to churns out techno-savvy IT professionals required for Multi - National Companies in India and abroad. We committed to the goal of inculcating human values besides imparting training in technology. We travail to mould full-fledged and technically wellborn IT professionals.', 'To provide a Life centered and job oriented quality computer education to all those who practise in our institute. To enable the youth from SAC to set out with confidence to conquer heights and build their lives with their high spirits and readinness.', 'K.T Abdulla', 'This promising establishment is nurtured by blessings and trust of the public. SAC prefers travelling along the less trodden paths that would lead to perfection. We have successfully implemented the new learning methodology, replacing the traditional way of reading and mugging up things with little practical industry exposure. Our courses are a highly effective and novel learning method based on real life situations. We have developed a new learning package, combining an updated curriculum, innovative methodology and a rich pool of teachers who has 15 years of experience.', 'SAC, marks the dawn of a new teaching- learning culture in computer methodology. We stand apart from the other computer training centers by virtue of our ability to evolve a curriculum that is current, update and unique. It could incorporate the latest technological innovations in imparting training', '0085051eb77563a2ed46cf6622692d80.jpg', 'b061ff855d9149d3bb020f0d327d1684.jpg', 'pppp');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slide_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `slide_tb` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `SlideName` varchar(225) NOT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `Photo` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+
+--
+-- Dumping data for table `slide_tb`
+--
+
+INSERT INTO `slide_tb` (`Id`, `SlideName`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `Photo`, `ActivatedOn`, `InActivatedOn`) VALUES
+(24, 'slide6', 'Active', 'admin', '2019-04-30 16:42:55', NULL, NULL, '1b0246cd36013872987c094ca49814a3.jpg', '2019-04-30 16:42:54', NULL),
+(25, 'slide2', 'Active', 'admin', '2019-04-30 16:44:49', NULL, NULL, '07992feefe7187131a9e0c2bf0555270.jpg', '2019-04-30 16:44:48', NULL),
+(26, 'slide5', 'Active', 'admin', '2019-04-30 16:45:19', NULL, NULL, 'f7badabade930678e7037d553c46df34.jpg', '2019-04-30 16:45:18', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `song_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `song_tb` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `FilmId` varchar(255) NOT NULL,
+  `SongName` varchar(225) NOT NULL,
+  `Link` text NOT NULL,
+  `FilmName` varchar(225) NOT NULL,
+  `Details` text NOT NULL,
+  `LastLoginDate` datetime DEFAULT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LastLoginIP` varchar(50) DEFAULT NULL,
+  `status1` enum('Release','Upcoming') DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `Photo` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `song_tb`
+--
+
+INSERT INTO `song_tb` (`Id`, `FilmId`, `SongName`, `Link`, `FilmName`, `Details`, `LastLoginDate`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `LastLoginIP`, `status1`, `LoginStatus`, `Photo`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, '1', 'Muttathe kombile..', 'https://youtu.be/VcAuerrqTH4', 'Oru Yamandan Prema Kadha', 'Oru Yamandan Premakadha | Muttathekombile Video Song | Dulquer Salman | Nadirsha', NULL, 'Active', 'admin', '2019-04-26 13:06:54', NULL, NULL, NULL, NULL, 0, '9d61cc3961b4f658bfa66c330130ac2a.jpg', '2019-04-26 13:06:53', NULL),
+(3, '2', 'Pavizha mazhaye........', 'https://youtu.be/ZCiDEc-QE5s', 'Athiran', 'Pavizha Mazha | ?????? | Athiran | Lyrical Video | Fahad Faasil | Sai Pallavi | Vivek', NULL, 'Active', 'admin', '2019-04-26 14:37:56', 'admin', '2019-04-26', NULL, NULL, 0, '69628ec71e00cea0a727166d44da373f.jpg', '2019-04-26 16:42:02', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `storyline`
+--
+
+CREATE TABLE IF NOT EXISTS `storyline` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `FilmId` varchar(225) NOT NULL,
+  `FilmName` varchar(255) NOT NULL,
+  `Story` text NOT NULL,
+  `LastLoginDate` datetime DEFAULT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LastLoginIP` varchar(50) DEFAULT NULL,
+  `status1` enum('Release','Upcoming') DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `storyline`
+--
+
+INSERT INTO `storyline` (`Id`, `FilmId`, `FilmName`, `Story`, `LastLoginDate`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `LastLoginIP`, `status1`, `LoginStatus`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, '1', 'Oru Yamandan Prema Kadha', 'A complete entertainer with elements of romance, comedy and action, Oru Yamandan Prema Kadha takes us into the world of a spirited youngster named Lallu and his colourful gang of friends.', NULL, 'Active', 'admin', '2019-04-26 12:48:01', 'admin', '2019-04-26', NULL, NULL, 0, '2019-04-26 12:48:25', NULL),
+(2, '2', 'Athiran', 'A psychiatrist makes a startling discovery when he investigates an autistic patient''s past.', NULL, 'Active', 'admin', '2019-04-26 14:34:12', NULL, NULL, NULL, NULL, 0, '2019-04-26 14:34:12', NULL),
+(3, '7', 'The Curse Of The Weeping Woman', 'When the lives of her children are endangered by an evil spirit, a single mother seeks the help of a priest to escape a tragic fate. Set in Los Angeles in the 1970s, the horror thriller brings alive the Latin American legend of La Llorona, who is believed to stalk the night and prey ', NULL, 'Active', 'admin', '2019-04-29 14:00:52', 'admin', '2019-04-29', NULL, NULL, 0, '2019-04-29 14:06:25', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_admin_menu`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_admin_menu` (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `MenuItem` varchar(100) NOT NULL,
+  `FaIcon` varchar(50) DEFAULT NULL,
+  `showCount` enum('No','Yes') DEFAULT 'No',
+  `countTitle` varchar(255) DEFAULT NULL,
+  `countTable` varchar(255) DEFAULT NULL COMMENT 'This is from where the table to count',
+  `linkPage` varchar(255) DEFAULT NULL,
+  `Status` enum('Hided','Showing') DEFAULT 'Showing',
+  `IsSystem` int(1) NOT NULL DEFAULT '1',
+  `Order` int(10) DEFAULT NULL,
+  `countWhereClause` text,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `menuq` (`MenuItem`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `sys_admin_menu`
+--
+
+INSERT INTO `sys_admin_menu` (`Id`, `MenuItem`, `FaIcon`, `showCount`, `countTitle`, `countTable`, `linkPage`, `Status`, `IsSystem`, `Order`, `countWhereClause`) VALUES
+(1, 'User Manager', 'fa fa-user', 'Yes', 'Total User(s)', 'login', 'CinemaAd/userManager', 'Showing', 1, 1, 'UserId!=''shameel'''),
+(2, 'Interview', 'fa fa-user', 'No', NULL, NULL, NULL, 'Showing', 1, 2, NULL),
+(3, 'Add Movies', 'fa fa-film', 'No', NULL, NULL, 'CinemaAd/latestRelease', 'Showing', 1, 3, NULL),
+(4, 'Add Language', 'fa fa-language', 'No', NULL, NULL, 'CinemaAd/language', 'Showing', 1, 4, NULL),
+(5, 'Add Flashnews', 'fa fa-globe', 'No', NULL, NULL, 'CinemaAd/addFlashnews', 'Showing', 1, 5, NULL),
+(6, 'Review', 'fa fa-globe', 'No', NULL, NULL, NULL, 'Showing', 1, 6, NULL),
+(7, 'Add Advertisement', 'fa fa-globe', 'No', NULL, NULL, 'CinemaAd/advertisement', 'Showing', 1, 7, NULL),
+(8, 'Add Slide Image', 'fa fa-globe', 'No', NULL, NULL, 'CinemaAd/addslide', 'Showing', 1, NULL, NULL),
+(9, 'Roundup', 'fa fa-globe', 'No', NULL, NULL, '', 'Showing', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_admin_sub_menu`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_admin_sub_menu` (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `MenuItemId` bigint(11) NOT NULL,
+  `MenuItem` varchar(100) NOT NULL,
+  `SubMenuItem` varchar(100) NOT NULL,
+  `FaIcon` varchar(50) DEFAULT NULL,
+  `pageLink` varchar(255) DEFAULT NULL,
+  `Status` int(1) NOT NULL DEFAULT '1',
+  `MenuOrder` int(10) DEFAULT NULL,
+  `SubMenuOrder` int(10) DEFAULT NULL,
+  `IsSystem` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `sys_admin_sub_menu`
+--
+
+INSERT INTO `sys_admin_sub_menu` (`Id`, `MenuItemId`, `MenuItem`, `SubMenuItem`, `FaIcon`, `pageLink`, `Status`, `MenuOrder`, `SubMenuOrder`, `IsSystem`) VALUES
+(1, 2, 'Interview', 'Add Interview', 'fa fa-book', 'interview', 1, 2, 1, 1),
+(2, 6, 'Review', 'Add Review', 'fa fa-book', 'review', 1, 3, 1, 1),
+(3, 2, 'Interview', 'View Interview', 'fa fa-eye', 'viewInterview', 1, 2, 2, 1),
+(4, 6, 'Review', 'View Review', 'fa fa-eye', 'viewReview', 1, 6, 2, 1),
+(5, 9, 'Roundup', 'Add Rondup', 'fa fa-globe', 'addRoundUp', 1, 9, 1, 1),
+(6, 9, 'Roundup', 'View Roundup', 'fa fa-eye', 'viewRoundUp', 1, 9, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_errorlog`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_errorlog` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `ErrorLocation` text NOT NULL,
+  `ErrorDescription` text NOT NULL,
+  `Remark` varchar(250) DEFAULT NULL,
+  `CreatedBy` varchar(250) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `Status` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `sys_errorlog`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_user_group`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_user_group` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `UserGroup` varchar(100) NOT NULL,
+  `Status` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `ug` (`UserGroup`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `sys_user_group`
+--
+
+INSERT INTO `sys_user_group` (`Id`, `UserGroup`, `Status`) VALUES
+(1, 'ADMIN', 1),
+(2, 'USER', 1),
+(3, 'ENTRY LEVEL', 1),
+(4, 'SUPER ADMIN', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_user_group_menu`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_user_group_menu` (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `UserGroupId` bigint(11) NOT NULL,
+  `UserGroup` varchar(100) NOT NULL,
+  `MenuItem` varchar(100) NOT NULL,
+  `MenuItemId` bigint(11) NOT NULL,
+  `Status` int(1) NOT NULL DEFAULT '1',
+  `CreatedBy` varchar(255) NOT NULL,
+  `CreatedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `sys_user_group_menu`
+--
+
+INSERT INTO `sys_user_group_menu` (`Id`, `UserGroupId`, `UserGroup`, `MenuItem`, `MenuItemId`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`) VALUES
+(1, 1, 'ADMIN', 'User Manager', 1, 1, 'SUPER_ADMIN', '2018-06-01 13:40:48', NULL, NULL),
+(2, 1, 'ADMIN', 'Interview', 2, 1, 'SUPER_ADMIN', '2018-06-11 11:14:50', NULL, NULL),
+(3, 1, 'ADMIN', 'Add Movies', 3, 1, 'SUPER_ADMIN', '2019-04-02 16:02:26', NULL, NULL),
+(4, 1, 'ADMIN', 'Add Language', 4, 1, 'SUPER_ADMIN', '2019-04-09 12:12:18', NULL, NULL),
+(5, 1, 'ADMIN', 'Add Flashnews', 5, 1, 'SUPER_ADMIN', '2019-04-10 15:21:45', NULL, NULL),
+(6, 1, 'ADMIN', 'Review', 6, 1, 'SUPER_ADMIN', '2019-04-12 10:39:35', NULL, NULL),
+(7, 1, 'ADMIN', 'Add Advertisement', 7, 1, 'SUPER_ADMIN', '2019-04-13 16:38:27', NULL, NULL),
+(8, 1, 'ADMIN', 'Add Slide Image', 8, 1, 'SUPER_ADMIN', '2019-04-20 17:10:09', NULL, NULL),
+(9, 1, 'ADMIN', 'Roundup', 9, 1, 'SUPER_ADMIN', '2019-05-01 11:44:29', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_user_log`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_user_log` (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `UserId` bigint(11) NOT NULL,
+  `UserName` varchar(50) DEFAULT NULL,
+  `UserType` varchar(11) DEFAULT NULL,
+  `LastLoginDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `LastLoginIP` varchar(45) DEFAULT NULL,
+  `SessionId` text,
+  `LogOutTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=489 ;
+
+--
+-- Dumping data for table `sys_user_log`
+--
+
+INSERT INTO `sys_user_log` (`Id`, `UserId`, `UserName`, `UserType`, `LastLoginDate`, `LastLoginIP`, `SessionId`, `LogOutTime`) VALUES
+(415, 11, 'shameel', 'ADMIN', '2018-09-04 16:15:06', '127.0.0.1', 'sq15n28lba0174himjone9lva2', '2018-09-04 16:15:45'),
+(416, 12, 'MMK', 'ADMIN', '2018-09-04 16:15:58', '127.0.0.1', 'sq15n28lba0174himjone9lva2', NULL),
+(417, 11, 'shameel', 'ADMIN', '2019-04-02 15:33:20', '127.0.0.1', '8ni5bdj3f2lt9jj7gehkm28i32', NULL),
+(418, 11, 'shameel', 'ADMIN', '2019-04-02 16:03:33', '127.0.0.1', '8ni5bdj3f2lt9jj7gehkm28i32', NULL),
+(419, 11, 'shameel', 'ADMIN', '2019-04-03 09:10:11', '127.0.0.1', '4fjeldt9caouidu835pc3rtm13', '2019-04-03 09:31:27'),
+(420, 11, 'shameel', 'ADMIN', '2019-04-03 11:10:05', '127.0.0.1', 'nu7d97hlpt1uogobnt7gkbes05', '2019-04-03 11:12:08'),
+(421, 14, 'admin', 'ADMIN', '2019-04-03 11:12:21', '127.0.0.1', 'nu7d97hlpt1uogobnt7gkbes05', NULL),
+(422, 14, 'admin', 'ADMIN', '2019-04-03 13:37:22', '127.0.0.1', 'nu7d97hlpt1uogobnt7gkbes05', '2019-04-12 12:41:22'),
+(423, 14, 'admin', 'ADMIN', '2019-04-03 15:47:23', '127.0.0.1', '9knkgo37d5sk5jpe8p93faiap0', NULL),
+(424, 14, 'admin', 'ADMIN', '2019-04-04 09:11:09', '127.0.0.1', 'mrognmu03t43dkbrpl5iulkkn5', NULL),
+(425, 14, 'admin', 'ADMIN', '2019-04-04 15:28:20', '127.0.0.1', '0097sm40rq2v6gkfmb6edaejs2', NULL),
+(426, 14, 'admin', 'ADMIN', '2019-04-05 09:30:03', '127.0.0.1', 'pgp6jmljv55jvucuhjbibcoh56', NULL),
+(427, 14, 'admin', 'ADMIN', '2019-04-05 17:14:52', '127.0.0.1', 'darpscdopfed8ata361g0hdff5', NULL),
+(428, 14, 'admin', 'ADMIN', '2019-04-06 09:15:09', '127.0.0.1', 'gt6r8om7817hfi1e0gp1h22lo5', NULL),
+(429, 14, 'admin', 'ADMIN', '2019-04-06 12:44:41', '127.0.0.1', 'gt6r8om7817hfi1e0gp1h22lo5', NULL),
+(430, 14, 'admin', 'ADMIN', '2019-04-06 15:11:46', '127.0.0.1', 'gt6r8om7817hfi1e0gp1h22lo5', NULL),
+(431, 14, 'admin', 'ADMIN', '2019-04-08 09:18:26', '127.0.0.1', 'h3llmmh1ar4e9fp55d7r8nao13', NULL),
+(432, 14, 'admin', 'ADMIN', '2019-04-08 13:55:31', '127.0.0.1', 'btdi41thu19201nidfs20775d2', NULL),
+(433, 14, 'admin', 'ADMIN', '2019-04-08 14:19:10', '127.0.0.1', 'btdi41thu19201nidfs20775d2', NULL),
+(434, 14, 'admin', 'ADMIN', '2019-04-08 16:12:44', '127.0.0.1', '5mdhls1t8dm2s0hthqe8tljji7', NULL),
+(435, 14, 'admin', 'ADMIN', '2019-04-08 17:23:11', '127.0.0.1', '5mdhls1t8dm2s0hthqe8tljji7', NULL),
+(436, 14, 'admin', 'ADMIN', '2019-04-09 09:07:04', '127.0.0.1', 'q40jk6smqe82jqg2f8m0p7toj5', NULL),
+(437, 14, 'admin', 'ADMIN', '2019-04-09 11:20:11', '127.0.0.1', 'afacmpp6pchmn7vdbclr7o3dk0', NULL),
+(438, 14, 'admin', 'ADMIN', '2019-04-09 13:10:53', '127.0.0.1', 'afacmpp6pchmn7vdbclr7o3dk0', NULL),
+(439, 14, 'admin', 'ADMIN', '2019-04-09 13:44:48', '127.0.0.1', 's24jucqsknopc21djqbjs00jr3', NULL),
+(440, 14, 'admin', 'ADMIN', '2019-04-09 17:14:21', '127.0.0.1', 'jfcvv011kg69v8004aj2dg4351', NULL),
+(441, 14, 'admin', 'ADMIN', '2019-04-10 09:21:36', '127.0.0.1', '2lhgts7n5qdc312bq5osngtsl2', NULL),
+(442, 14, 'admin', 'ADMIN', '2019-04-10 10:47:26', '127.0.0.1', '6dp7asvpf9rlgques2td2395f4', NULL),
+(443, 14, 'admin', 'ADMIN', '2019-04-10 12:32:28', '127.0.0.1', 'c148u387hf1q1k7n1rrncch6v7', NULL),
+(444, 14, 'admin', 'ADMIN', '2019-04-10 13:54:58', '127.0.0.1', 'l9ij92ou685tckvnssmpr83fa5', NULL),
+(445, 14, 'admin', 'ADMIN', '2019-04-10 15:22:32', '127.0.0.1', 'lgtpg114kfpg3m5ae96it8ldn1', NULL),
+(446, 14, 'admin', 'ADMIN', '2019-04-11 09:29:39', '127.0.0.1', 'hcdvdno1ptppk2ua40q0oflfu3', NULL),
+(447, 14, 'admin', 'ADMIN', '2019-04-11 15:02:53', '127.0.0.1', 'hcdvdno1ptppk2ua40q0oflfu3', NULL),
+(448, 14, 'admin', 'ADMIN', '2019-04-11 15:08:46', '127.0.0.1', '29taac6tqsl2frql0pg23ghir0', NULL),
+(449, 14, 'admin', 'ADMIN', '2019-04-11 15:15:52', '127.0.0.1', '29taac6tqsl2frql0pg23ghir0', NULL),
+(450, 14, 'admin', 'ADMIN', '2019-04-11 15:17:06', '127.0.0.1', '29taac6tqsl2frql0pg23ghir0', NULL),
+(451, 14, 'admin', 'ADMIN', '2019-04-11 15:35:18', '127.0.0.1', '29taac6tqsl2frql0pg23ghir0', NULL),
+(452, 14, 'admin', 'ADMIN', '2019-04-11 16:15:10', '127.0.0.1', '29taac6tqsl2frql0pg23ghir0', NULL),
+(453, 14, 'admin', 'ADMIN', '2019-04-12 09:10:52', '127.0.0.1', 'rlbcvau4q0665cskfsgho4np91', NULL),
+(454, 14, 'admin', 'ADMIN', '2019-04-12 12:41:35', '127.0.0.1', 'rlbcvau4q0665cskfsgho4np91', '2019-04-12 15:15:10'),
+(455, 14, 'admin', 'ADMIN', '2019-04-12 15:15:28', '127.0.0.1', 'rlbcvau4q0665cskfsgho4np91', NULL),
+(456, 14, 'admin', 'ADMIN', '2019-04-13 09:13:44', '127.0.0.1', 'hoh8ds425002meolpv54f2jkh1', NULL),
+(457, 14, 'admin', 'ADMIN', '2019-04-13 09:49:57', '127.0.0.1', 'arv9o0o8ohtso4nm68b97e6em3', NULL),
+(458, 14, 'admin', 'ADMIN', '2019-04-16 09:43:47', '127.0.0.1', 'duo9p3ncl5m83iifvamhshjse3', NULL),
+(459, 14, 'admin', 'ADMIN', '2019-04-16 10:37:58', '127.0.0.1', '9cukc8bps9ufva6argo8ndlt74', NULL),
+(460, 14, 'admin', 'ADMIN', '2019-04-16 14:45:04', '127.0.0.1', '9uc29t34idtjvff8jnbtqq1m33', NULL),
+(461, 14, 'admin', 'ADMIN', '2019-04-17 10:21:25', '127.0.0.1', 'bt2pmqtgiuiv6tjuo74cnr8s65', NULL),
+(462, 14, 'admin', 'ADMIN', '2019-04-17 11:35:13', '127.0.0.1', 'f33oha8r28ehltg5haq71gmk02', '2019-04-17 11:35:29'),
+(463, 14, 'admin', 'ADMIN', '2019-04-17 11:35:45', '127.0.0.1', 'f33oha8r28ehltg5haq71gmk02', NULL),
+(464, 11, 'shameel', 'ADMIN', '2019-04-17 13:42:46', '127.0.0.1', 'di8oa6uqk84mpfagfq9426l6i6', NULL),
+(465, 14, 'admin', 'ADMIN', '2019-04-19 09:09:52', '127.0.0.1', '7ah9pqofh8a3ip6kvh46rmcma1', NULL),
+(466, 14, 'admin', 'ADMIN', '2019-04-19 11:41:11', '127.0.0.1', '7ah9pqofh8a3ip6kvh46rmcma1', NULL),
+(467, 14, 'admin', 'ADMIN', '2019-04-20 09:12:47', '127.0.0.1', 'vujf4e6o4om1jpog9d7dfbr982', NULL),
+(468, 14, 'admin', 'ADMIN', '2019-04-20 11:39:42', '127.0.0.1', 'jc76cogfuuki7e27nep8q1ph40', NULL),
+(469, 14, 'admin', 'ADMIN', '2019-04-20 16:08:24', '127.0.0.1', 'jc76cogfuuki7e27nep8q1ph40', NULL),
+(470, 14, 'admin', 'ADMIN', '2019-04-22 09:12:52', '127.0.0.1', 'u6lcm89ceif3p1t68hsdbs6sq1', NULL),
+(471, 14, 'admin', 'ADMIN', '2019-04-22 15:01:42', '127.0.0.1', 'j8op4td75qtvq9pmn6v32q4qm7', NULL),
+(472, 14, 'admin', 'ADMIN', '2019-04-22 15:20:02', '127.0.0.1', 'th38vjid5edd5qhn0m1bbo4r60', NULL),
+(473, 14, 'admin', 'ADMIN', '2019-04-24 09:17:48', '127.0.0.1', 'v2b5e1o3sbbbq56289vkghh862', NULL),
+(474, 14, 'admin', 'ADMIN', '2019-04-24 12:09:38', '127.0.0.1', 'v2b5e1o3sbbbq56289vkghh862', NULL),
+(475, 14, 'admin', 'ADMIN', '2019-04-25 09:12:20', '127.0.0.1', '4r0vsdq50rq8qv46aq96ciqta3', NULL),
+(476, 14, 'admin', 'ADMIN', '2019-04-25 10:30:32', '127.0.0.1', '4r0vsdq50rq8qv46aq96ciqta3', NULL),
+(477, 14, 'admin', 'ADMIN', '2019-04-25 12:58:43', '127.0.0.1', 'ata65vm99il7oa2cc9598jhou6', NULL),
+(478, 14, 'admin', 'ADMIN', '2019-04-26 09:13:12', '127.0.0.1', 's4cahicl8b95nougk5lpra0kq7', NULL),
+(479, 14, 'admin', 'ADMIN', '2019-04-26 11:38:40', '127.0.0.1', 'ev7aeuc6b6rv9jaf66h2vuaek3', NULL),
+(480, 14, 'admin', 'ADMIN', '2019-04-26 12:46:11', '127.0.0.1', 'bmqjjhje60ravhmusaeu65uo96', NULL),
+(481, 14, 'admin', 'ADMIN', '2019-04-26 15:38:41', '127.0.0.1', 'l2bh3qmhmkf9gfj82t62c5dif3', NULL),
+(482, 14, 'admin', 'ADMIN', '2019-04-29 09:19:37', '127.0.0.1', 'dqfcigo336k1ir3fl2464gs9j4', '2019-04-29 13:04:43'),
+(483, 14, 'admin', 'ADMIN', '2019-04-29 13:05:11', '127.0.0.1', 'dqfcigo336k1ir3fl2464gs9j4', '2019-04-29 14:38:35'),
+(484, 14, 'admin', 'ADMIN', '2019-04-29 14:38:47', '127.0.0.1', 'dqfcigo336k1ir3fl2464gs9j4', NULL),
+(485, 14, 'admin', 'ADMIN', '2019-04-29 15:29:53', '127.0.0.1', 'i4pflkhjcfpkoqjbscfcchuaj3', NULL),
+(486, 14, 'admin', 'ADMIN', '2019-04-30 16:17:50', '127.0.0.1', 'e7vg3b42dq82ih3ii8jc6o3r66', NULL),
+(487, 14, 'admin', 'ADMIN', '2019-05-01 09:17:45', '127.0.0.1', 'e3mq530r9bijnup9q3u8cc1nb6', NULL),
+(488, 14, 'admin', 'ADMIN', '2019-05-01 10:57:57', '127.0.0.1', 'tgkabrpjmu2qhbjqd7t7978f31', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sys_user_log_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `sys_user_log_detail` (
+  `Id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `UserLogId` bigint(11) DEFAULT NULL COMMENT 'Id from user_log table',
+  `UserName` varchar(50) DEFAULT NULL,
+  `Actions` text,
+  `ActionIP` varchar(45) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2235 ;
+
+--
+-- Dumping data for table `sys_user_log_detail`
+--
+
+INSERT INTO `sys_user_log_detail` (`Id`, `UserLogId`, `UserName`, `Actions`, `ActionIP`, `CreatedOn`) VALUES
+(1658, 415, 'shameel', 'New user created.', '127.0.0.1', '2018-09-04 16:15:37'),
+(1659, 420, 'shameel', 'New user created.', '127.0.0.1', '2019-04-03 11:10:26'),
+(1660, 423, 'admin', 'New user created.', '127.0.0.1', '2019-04-03 15:59:16'),
+(1661, 423, 'admin', 'New user created.', '127.0.0.1', '2019-04-03 16:06:42'),
+(1662, 423, 'admin', 'New user created.', '127.0.0.1', '2019-04-03 16:07:05'),
+(1663, 423, 'admin', 'New user created.', '127.0.0.1', '2019-04-03 16:07:14'),
+(1664, 423, 'admin', 'New user created.', '127.0.0.1', '2019-04-03 16:33:19'),
+(1665, 423, 'admin', 'User data changed.', '127.0.0.1', '2019-04-03 16:42:31'),
+(1666, 423, 'admin', 'User data changed.', '127.0.0.1', '2019-04-03 16:42:45'),
+(1667, 423, 'admin', 'User data changed.', '127.0.0.1', '2019-04-03 16:48:04'),
+(1668, 423, 'admin', 'New user created.', '127.0.0.1', '2019-04-03 17:29:24'),
+(1669, 423, 'admin', 'New user created.', '127.0.0.1', '2019-04-03 17:31:05'),
+(1670, 425, 'admin', 'New user created.', '127.0.0.1', '2019-04-04 15:29:04'),
+(1671, 425, 'admin', 'New user created.', '127.0.0.1', '2019-04-04 15:29:40'),
+(1672, 425, 'admin', 'New user created.', '127.0.0.1', '2019-04-04 15:31:05'),
+(1673, 426, 'admin', 'New user created.', '127.0.0.1', '2019-04-05 10:29:48'),
+(1674, 428, 'admin', 'New user created.', '127.0.0.1', '2019-04-06 09:37:52'),
+(1675, 428, 'admin', 'New user created.', '127.0.0.1', '2019-04-06 09:42:03'),
+(1676, 428, 'admin', 'New user created.', '127.0.0.1', '2019-04-06 09:46:50'),
+(1677, 428, 'admin', 'New user created.', '127.0.0.1', '2019-04-06 09:50:04'),
+(1678, 428, 'admin', 'New user created.', '127.0.0.1', '2019-04-06 09:52:12'),
+(1679, 428, 'admin', 'New user created.', '127.0.0.1', '2019-04-06 10:23:12'),
+(1680, 429, 'admin', 'New user created.', '127.0.0.1', '2019-04-06 13:02:42'),
+(1681, 433, 'admin', 'New user created.', '127.0.0.1', '2019-04-08 16:04:23'),
+(1682, 434, 'admin', 'New user created.', '127.0.0.1', '2019-04-08 16:15:37'),
+(1683, 434, 'admin', 'New user created.', '127.0.0.1', '2019-04-08 16:19:47'),
+(1684, 434, 'admin', 'New user created.', '127.0.0.1', '2019-04-08 16:48:45'),
+(1685, 436, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 09:57:19'),
+(1686, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 09:57:47'),
+(1687, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 10:00:18'),
+(1688, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 10:01:26'),
+(1689, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 10:01:39'),
+(1690, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 10:11:18'),
+(1691, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 10:11:47'),
+(1692, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 10:12:14'),
+(1693, 436, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 10:12:36'),
+(1694, 437, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 11:39:33'),
+(1695, 437, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 11:41:25'),
+(1696, 437, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 11:42:30'),
+(1697, 437, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 11:44:16'),
+(1698, 437, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 11:51:23'),
+(1699, 437, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 11:55:16'),
+(1700, 437, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 11:56:12'),
+(1701, 437, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 12:05:51'),
+(1702, 437, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 12:05:58'),
+(1703, 437, 'admin', 'User data changed.', '127.0.0.1', '2019-04-09 12:06:02'),
+(1704, 439, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 15:25:12'),
+(1705, 439, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 15:37:10'),
+(1706, 439, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 15:38:18'),
+(1707, 439, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 15:38:35'),
+(1708, 439, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 15:41:32'),
+(1709, 439, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 16:18:13'),
+(1710, 440, 'admin', 'New user created.', '127.0.0.1', '2019-04-09 17:17:10'),
+(1711, 441, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 09:22:09'),
+(1712, 441, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 09:22:20'),
+(1713, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 09:22:41'),
+(1714, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 09:23:10'),
+(1715, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 09:24:10'),
+(1716, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 09:35:37'),
+(1717, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 09:35:59'),
+(1718, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 09:50:26'),
+(1719, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 09:57:14'),
+(1720, 441, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 09:57:26'),
+(1721, 441, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 09:59:21'),
+(1722, 441, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 09:59:32'),
+(1723, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 10:08:37'),
+(1724, 441, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 10:12:48'),
+(1725, 441, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 10:14:07'),
+(1726, 441, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 10:14:16'),
+(1727, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 10:47:38'),
+(1728, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 10:48:06'),
+(1729, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 10:48:12'),
+(1730, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:06:11'),
+(1731, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:06:31'),
+(1732, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 11:11:26'),
+(1733, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 11:11:44'),
+(1734, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:12:38'),
+(1735, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:13:05'),
+(1736, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 11:14:22'),
+(1737, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:16:07'),
+(1738, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:21:14'),
+(1739, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:34:28'),
+(1740, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:36:18'),
+(1741, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:37:05'),
+(1742, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 11:39:33'),
+(1743, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 11:39:41'),
+(1744, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:41:30'),
+(1745, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 11:41:41'),
+(1746, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:51:31'),
+(1747, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:51:36'),
+(1748, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:51:42'),
+(1749, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 11:59:03'),
+(1750, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:01:59'),
+(1751, 442, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 12:04:10'),
+(1752, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:05:16'),
+(1753, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:07:37'),
+(1754, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:08:16'),
+(1755, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:09:27'),
+(1756, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:10:15'),
+(1757, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:11:07'),
+(1758, 442, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:11:29'),
+(1759, 443, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 12:32:44'),
+(1760, 444, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 15:01:52'),
+(1761, 445, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 16:14:38'),
+(1762, 445, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 16:16:53'),
+(1763, 445, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 16:20:21'),
+(1764, 445, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 16:29:25'),
+(1765, 445, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 16:36:06'),
+(1766, 445, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 17:02:39'),
+(1767, 445, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 17:07:23'),
+(1768, 445, 'admin', 'New user created.', '127.0.0.1', '2019-04-10 17:17:27'),
+(1769, 445, 'admin', 'User data changed.', '127.0.0.1', '2019-04-10 17:27:57'),
+(1770, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 09:38:46'),
+(1771, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 10:18:48'),
+(1772, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 10:43:51'),
+(1773, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 10:47:13'),
+(1774, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 10:47:24'),
+(1775, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 10:49:13'),
+(1776, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 12:40:05'),
+(1777, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 12:40:23'),
+(1778, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 12:45:25'),
+(1779, 446, 'admin', 'New user created.', '127.0.0.1', '2019-04-11 12:45:58'),
+(1780, 446, 'admin', 'User data changed.', '127.0.0.1', '2019-04-11 13:06:11'),
+(1781, 453, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 09:43:18'),
+(1782, 453, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 09:46:45'),
+(1783, 454, 'admin', 'User profile photo edited for user :MMK.', '127.0.0.1', '2019-04-12 12:44:29'),
+(1784, 454, 'admin', 'User profile photo edited for user :MMK.', '127.0.0.1', '2019-04-12 12:45:58'),
+(1785, 454, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 12:50:45'),
+(1786, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 13:02:41'),
+(1787, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 13:02:48'),
+(1788, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 13:59:05'),
+(1789, 454, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 13:59:16'),
+(1790, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 13:59:39'),
+(1791, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 14:04:26'),
+(1792, 454, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 14:04:34'),
+(1793, 454, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 14:25:12'),
+(1794, 454, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 14:26:34'),
+(1795, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 14:30:43'),
+(1796, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 14:41:33'),
+(1797, 454, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 14:45:06'),
+(1798, 454, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 14:45:23'),
+(1799, 454, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 14:48:52'),
+(1800, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 15:25:29'),
+(1801, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 15:25:39'),
+(1802, 455, 'admin', 'User data changed.', '127.0.0.1', '2019-04-12 15:30:17'),
+(1803, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 16:07:36'),
+(1804, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 16:07:47'),
+(1805, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 16:09:17'),
+(1806, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 16:09:30'),
+(1807, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 16:09:40'),
+(1808, 455, 'admin', 'New user created.', '127.0.0.1', '2019-04-12 16:09:55'),
+(1809, 457, 'admin', 'New user created.', '127.0.0.1', '2019-04-13 17:05:12'),
+(1810, 457, 'admin', 'New user created.', '127.0.0.1', '2019-04-13 17:26:57'),
+(1811, 457, 'admin', 'New user created.', '127.0.0.1', '2019-04-13 17:28:26'),
+(1812, 459, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 10:57:14'),
+(1813, 459, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 11:00:50'),
+(1814, 459, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 11:29:08'),
+(1815, 458, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 11:35:50'),
+(1816, 458, 'admin', 'User data changed.', '127.0.0.1', '2019-04-16 11:36:34'),
+(1817, 458, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 11:36:58'),
+(1818, 459, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 13:01:26'),
+(1819, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:45:58'),
+(1820, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:55:34'),
+(1821, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:56:19'),
+(1822, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:56:46'),
+(1823, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:56:56'),
+(1824, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:57:12'),
+(1825, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:57:33'),
+(1826, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:57:51'),
+(1827, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 14:58:04'),
+(1828, 460, 'admin', 'User data changed.', '127.0.0.1', '2019-04-16 14:58:49'),
+(1829, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:11:34'),
+(1830, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:39:12'),
+(1831, 460, 'admin', 'User data changed.', '127.0.0.1', '2019-04-16 15:42:59'),
+(1832, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:49:47'),
+(1833, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:51:22'),
+(1834, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:52:47'),
+(1835, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:53:18'),
+(1836, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:53:36'),
+(1837, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 15:54:34'),
+(1838, 460, 'admin', 'User data changed.', '127.0.0.1', '2019-04-16 15:55:20'),
+(1839, 460, 'admin', 'User data changed.', '127.0.0.1', '2019-04-16 16:18:48'),
+(1840, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 16:21:37'),
+(1841, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 16:23:22'),
+(1842, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 16:30:29'),
+(1843, 460, 'admin', 'User data changed.', '127.0.0.1', '2019-04-16 16:36:11'),
+(1844, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 16:49:54'),
+(1845, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 16:57:06'),
+(1846, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 16:57:25'),
+(1847, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 17:06:47'),
+(1848, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 17:07:05'),
+(1849, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 17:13:26'),
+(1850, 460, 'admin', 'User data changed.', '127.0.0.1', '2019-04-16 17:15:59'),
+(1851, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 17:24:04'),
+(1852, 460, 'admin', 'New user created.', '127.0.0.1', '2019-04-16 17:25:58'),
+(1853, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:42:50'),
+(1854, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:43:00'),
+(1855, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:43:13'),
+(1856, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:43:24'),
+(1857, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:43:38'),
+(1858, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:43:49'),
+(1859, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:44:00'),
+(1860, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:45:48'),
+(1861, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:46:01'),
+(1862, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:48:08'),
+(1863, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:48:22'),
+(1864, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:48:39'),
+(1865, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:49:39'),
+(1866, 461, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 10:50:06'),
+(1867, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 11:57:58'),
+(1868, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 11:59:23'),
+(1869, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:01:30'),
+(1870, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:01:52'),
+(1871, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:02:17'),
+(1872, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:03:05'),
+(1873, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:05:07'),
+(1874, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:05:46'),
+(1875, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:05:58'),
+(1876, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:13:36'),
+(1877, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:14:18'),
+(1878, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:15:29'),
+(1879, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:15:52'),
+(1880, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:23:48'),
+(1881, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:25:00'),
+(1882, 463, 'admin', 'New user created.', '127.0.0.1', '2019-04-17 12:25:59'),
+(1883, 465, 'admin', 'New user created.', '127.0.0.1', '2019-04-19 09:10:32'),
+(1884, 465, 'admin', 'New user created.', '127.0.0.1', '2019-04-19 09:12:56'),
+(1885, 465, 'admin', 'New user created.', '127.0.0.1', '2019-04-19 09:14:14'),
+(1886, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:45:40'),
+(1887, 467, 'admin', 'User data changed.', '127.0.0.1', '2019-04-20 09:46:31'),
+(1888, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:46:57'),
+(1889, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:49:25'),
+(1890, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:51:37'),
+(1891, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:53:10'),
+(1892, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:55:20'),
+(1893, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:56:14'),
+(1894, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:57:01'),
+(1895, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:57:41'),
+(1896, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 09:59:12'),
+(1897, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:00:14'),
+(1898, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:01:16'),
+(1899, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:01:35'),
+(1900, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:03:00'),
+(1901, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:09:04'),
+(1902, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:11:31'),
+(1903, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:14:07'),
+(1904, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:25:09'),
+(1905, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:26:11'),
+(1906, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:26:46'),
+(1907, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:27:16'),
+(1908, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:30:56'),
+(1909, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:37:25'),
+(1910, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:38:20'),
+(1911, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 10:40:47'),
+(1912, 468, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 12:53:27'),
+(1913, 468, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 12:54:22'),
+(1914, 468, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 13:46:14'),
+(1915, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 15:23:45'),
+(1916, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 15:24:51'),
+(1917, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 15:24:57'),
+(1918, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 15:25:03'),
+(1919, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 15:25:08'),
+(1920, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 15:25:15'),
+(1921, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:04:54'),
+(1922, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:05:11'),
+(1923, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:09:45'),
+(1924, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:09:59'),
+(1925, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:10:29'),
+(1926, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:11:07'),
+(1927, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:11:47'),
+(1928, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:12:05'),
+(1929, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:13:30'),
+(1930, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:18:32'),
+(1931, 467, 'admin', 'User data changed.', '127.0.0.1', '2019-04-20 16:19:08'),
+(1932, 469, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:22:30'),
+(1933, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:35:13'),
+(1934, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:38:06'),
+(1935, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:41:50'),
+(1936, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:41:59'),
+(1937, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:43:09'),
+(1938, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 16:43:26'),
+(1939, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 17:03:45'),
+(1940, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 17:04:16'),
+(1941, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 17:04:40'),
+(1942, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 17:05:03'),
+(1943, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 17:05:17'),
+(1944, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 17:05:31'),
+(1945, 467, 'admin', 'New user created.', '127.0.0.1', '2019-04-20 17:05:57'),
+(1946, 470, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 10:01:39'),
+(1947, 470, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 10:01:53'),
+(1948, 470, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 10:36:51'),
+(1949, 470, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 10:39:37'),
+(1950, 470, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 12:12:22'),
+(1951, 470, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 12:21:44'),
+(1952, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 15:54:59'),
+(1953, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 15:56:10'),
+(1954, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 15:56:56'),
+(1955, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 15:58:50'),
+(1956, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:02:09'),
+(1957, 472, 'admin', 'User data changed.', '127.0.0.1', '2019-04-22 16:03:50'),
+(1958, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:05:59'),
+(1959, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:06:37'),
+(1960, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:07:25'),
+(1961, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:11:10'),
+(1962, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:12:17'),
+(1963, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:12:43'),
+(1964, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:13:43'),
+(1965, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:16:13'),
+(1966, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:17:11'),
+(1967, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:17:39'),
+(1968, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:18:31'),
+(1969, 472, 'admin', 'User data changed.', '127.0.0.1', '2019-04-22 16:19:24'),
+(1970, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:22:37'),
+(1971, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:24:50'),
+(1972, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:28:19'),
+(1973, 472, 'admin', 'New user created.', '127.0.0.1', '2019-04-22 16:28:39'),
+(1974, 472, 'admin', 'User data changed.', '127.0.0.1', '2019-04-22 16:31:29'),
+(1975, 473, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 09:26:10'),
+(1976, 473, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 09:32:14'),
+(1977, 473, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 09:48:10'),
+(1978, 473, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 10:49:14'),
+(1979, 474, 'admin', 'User data changed.', '127.0.0.1', '2019-04-24 12:37:37'),
+(1980, 474, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 12:39:08'),
+(1981, 474, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 12:52:35'),
+(1982, 474, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 12:56:53'),
+(1983, 474, 'admin', 'New user created.', '127.0.0.1', '2019-04-24 13:19:20'),
+(1984, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:21:49'),
+(1985, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:40:57'),
+(1986, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:44:46'),
+(1987, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:45:53'),
+(1988, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:46:46'),
+(1989, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:47:26'),
+(1990, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:49:09'),
+(1991, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:50:01'),
+(1992, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:50:49'),
+(1993, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:53:19'),
+(1994, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:55:53'),
+(1995, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:56:42'),
+(1996, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:57:16'),
+(1997, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 09:57:57'),
+(1998, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:00:33'),
+(1999, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:01:19'),
+(2000, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:02:06'),
+(2001, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:02:45'),
+(2002, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:03:23'),
+(2003, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:04:01'),
+(2004, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:04:47'),
+(2005, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:07:13'),
+(2006, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:09:01'),
+(2007, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:15:41'),
+(2008, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:17:28'),
+(2009, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:18:32'),
+(2010, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:19:13'),
+(2011, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:20:30'),
+(2012, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:21:57'),
+(2013, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:23:11'),
+(2014, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:23:43'),
+(2015, 475, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:25:33'),
+(2016, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:32:01'),
+(2017, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:35:02'),
+(2018, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:36:11'),
+(2019, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:37:22'),
+(2020, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:40:07'),
+(2021, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:42:59'),
+(2022, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:46:01'),
+(2023, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:53:22'),
+(2024, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:54:42'),
+(2025, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 10:55:59'),
+(2026, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:01:13'),
+(2027, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:04:54'),
+(2028, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:06:19'),
+(2029, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:07:19'),
+(2030, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:08:13'),
+(2031, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:09:46'),
+(2032, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:10:06'),
+(2033, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:11:39'),
+(2034, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:15:23'),
+(2035, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:19:12'),
+(2036, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:20:36'),
+(2037, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:21:09'),
+(2038, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:21:53'),
+(2039, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:23:19'),
+(2040, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:27:23'),
+(2041, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 11:28:31'),
+(2042, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 12:30:11'),
+(2043, 477, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 13:23:39'),
+(2044, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:16:03'),
+(2045, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:20:50'),
+(2046, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:23:01'),
+(2047, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:25:41'),
+(2048, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:29:03'),
+(2049, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:29:28'),
+(2050, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:30:32'),
+(2051, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:32:22'),
+(2052, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:38:48'),
+(2053, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:39:19'),
+(2054, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:41:27'),
+(2055, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:41:50'),
+(2056, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:42:36'),
+(2057, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:43:39'),
+(2058, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:50:03'),
+(2059, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 14:52:03'),
+(2060, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:08:37'),
+(2061, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:12:48'),
+(2062, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:15:45'),
+(2063, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:22:07'),
+(2064, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:33:10'),
+(2065, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:33:57'),
+(2066, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:34:37'),
+(2067, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:40:21'),
+(2068, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:50:52'),
+(2069, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:51:41'),
+(2070, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:52:47'),
+(2071, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:54:52'),
+(2072, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:55:09'),
+(2073, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:55:27'),
+(2074, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:55:36'),
+(2075, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:56:00'),
+(2076, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:56:09'),
+(2077, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:56:39'),
+(2078, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:56:48'),
+(2079, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 15:57:02'),
+(2080, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 15:59:41'),
+(2081, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:00:44'),
+(2082, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:12:08'),
+(2083, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:12:48'),
+(2084, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 16:13:27'),
+(2085, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:14:47'),
+(2086, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:23:30'),
+(2087, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:25:14'),
+(2088, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 16:25:25'),
+(2089, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:33:37'),
+(2090, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:35:13'),
+(2091, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:46:41'),
+(2092, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:47:48'),
+(2093, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 16:55:40'),
+(2094, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 17:25:39'),
+(2095, 476, 'admin', 'New user created.', '127.0.0.1', '2019-04-25 17:26:43'),
+(2096, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 17:29:33'),
+(2097, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 17:29:52'),
+(2098, 476, 'admin', 'User data changed.', '127.0.0.1', '2019-04-25 17:30:03'),
+(2099, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:14:36'),
+(2100, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:15:06'),
+(2101, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:21:31'),
+(2102, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:21:39'),
+(2103, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:21:46'),
+(2104, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:22:14'),
+(2105, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:22:21'),
+(2106, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:22:38'),
+(2107, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:22:55'),
+(2108, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:23:13'),
+(2109, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:23:23'),
+(2110, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:24:22'),
+(2111, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:25:18'),
+(2112, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:25:43'),
+(2113, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:25:48'),
+(2114, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:26:52'),
+(2115, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:28:21'),
+(2116, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:28:38'),
+(2117, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:33:57'),
+(2118, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:34:05'),
+(2119, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:36:04'),
+(2120, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:36:19'),
+(2121, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:36:53'),
+(2122, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:40:42'),
+(2123, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:42:24'),
+(2124, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 09:42:45'),
+(2125, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 09:51:25'),
+(2126, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 10:00:13'),
+(2127, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 10:04:31'),
+(2128, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:05:03'),
+(2129, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 10:05:53'),
+(2130, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:06:45'),
+(2131, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 10:15:21'),
+(2132, 478, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 10:26:30'),
+(2133, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:26:49'),
+(2134, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:27:19'),
+(2135, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:49:17'),
+(2136, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:49:31'),
+(2137, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:49:38'),
+(2138, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:49:58'),
+(2139, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:50:07'),
+(2140, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:50:10'),
+(2141, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:50:33'),
+(2142, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:51:35'),
+(2143, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:52:08'),
+(2144, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:52:23'),
+(2145, 478, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 10:52:43'),
+(2146, 479, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 12:42:31'),
+(2147, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 12:47:12'),
+(2148, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 12:48:01'),
+(2149, 480, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 12:48:18'),
+(2150, 480, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 12:48:25'),
+(2151, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 12:49:25'),
+(2152, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 12:53:03'),
+(2153, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 13:05:09'),
+(2154, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 13:06:54'),
+(2155, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 13:07:17'),
+(2156, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 13:08:26'),
+(2157, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:33:44'),
+(2158, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:34:13'),
+(2159, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:34:45'),
+(2160, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:35:17'),
+(2161, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:36:55'),
+(2162, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:37:56'),
+(2163, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:38:06'),
+(2164, 480, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 14:39:28'),
+(2165, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 15:39:06'),
+(2166, 481, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 15:46:14'),
+(2167, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 15:47:34'),
+(2168, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 15:48:07'),
+(2169, 481, 'admin', 'New user created.', '127.0.0.1', '2019-04-26 15:52:00'),
+(2170, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 15:52:20'),
+(2171, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 15:52:30'),
+(2172, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:01:45'),
+(2173, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:04:46'),
+(2174, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:09:30'),
+(2175, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:10:35'),
+(2176, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:10:46'),
+(2177, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:10:55'),
+(2178, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:42:02'),
+(2179, 481, 'admin', 'User data changed.', '127.0.0.1', '2019-04-26 16:56:47'),
+(2180, 482, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 10:31:21'),
+(2181, 482, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 10:31:34'),
+(2182, 482, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 11:39:26'),
+(2183, 482, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 11:39:48'),
+(2184, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 11:47:02'),
+(2185, 482, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 11:47:43'),
+(2186, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 11:56:14'),
+(2187, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 11:57:01'),
+(2188, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:09:51'),
+(2189, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:11:06'),
+(2190, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:13:01'),
+(2191, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:15:12'),
+(2192, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:24:02'),
+(2193, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:25:08'),
+(2194, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:25:34'),
+(2195, 482, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 12:26:28'),
+(2196, 482, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 12:59:40'),
+(2197, 482, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 12:59:50'),
+(2198, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:00:21'),
+(2199, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:00:52'),
+(2200, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:03:05'),
+(2201, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:03:54'),
+(2202, 483, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:06:25'),
+(2203, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:07:07'),
+(2204, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:13:58'),
+(2205, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:14:34'),
+(2206, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:20:17'),
+(2207, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:20:30'),
+(2208, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:23:13'),
+(2209, 483, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:30:31'),
+(2210, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:31:14'),
+(2211, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:32:13'),
+(2212, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:32:38'),
+(2213, 483, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:36:02'),
+(2214, 483, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:36:13'),
+(2215, 483, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:36:24'),
+(2216, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:43:33'),
+(2217, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:46:40'),
+(2218, 484, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 14:48:51'),
+(2219, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:49:00'),
+(2220, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:49:18'),
+(2221, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:49:37'),
+(2222, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:49:45'),
+(2223, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 14:50:19'),
+(2224, 484, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 15:01:57'),
+(2225, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 15:02:07'),
+(2226, 484, 'admin', 'New user created.', '127.0.0.1', '2019-04-29 15:02:46'),
+(2227, 484, 'admin', 'User data changed.', '127.0.0.1', '2019-04-29 15:03:07'),
+(2228, 486, 'admin', 'New user created.', '127.0.0.1', '2019-04-30 16:39:15'),
+(2229, 486, 'admin', 'New user created.', '127.0.0.1', '2019-04-30 16:40:50'),
+(2230, 486, 'admin', 'New user created.', '127.0.0.1', '2019-04-30 16:41:51'),
+(2231, 486, 'admin', 'New user created.', '127.0.0.1', '2019-04-30 16:42:55'),
+(2232, 486, 'admin', 'New user created.', '127.0.0.1', '2019-04-30 16:44:49'),
+(2233, 486, 'admin', 'New user created.', '127.0.0.1', '2019-04-30 16:45:19'),
+(2234, 486, 'admin', 'New user created.', '127.0.0.1', '2019-04-30 16:58:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `theater_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `theater_tb` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `FilmId` varchar(225) NOT NULL,
+  `FilmName` varchar(225) NOT NULL,
+  `TheaterName` varchar(255) NOT NULL,
+  `Place` varchar(225) NOT NULL,
+  `ShowTime` time NOT NULL,
+  `ShowDate` date NOT NULL,
+  `Details` text NOT NULL,
+  `LastLoginDate` datetime DEFAULT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LastLoginIP` varchar(50) DEFAULT NULL,
+  `status1` enum('Release','Upcoming') DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `Photo` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `theater_tb`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trailer_tb`
+--
+
+CREATE TABLE IF NOT EXISTS `trailer_tb` (
+  `Id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `FilmId` varchar(255) NOT NULL,
+  `FilmName` varchar(255) NOT NULL,
+  `TrailerLink` text NOT NULL,
+  `Details` text NOT NULL,
+  `LastLoginDate` datetime DEFAULT NULL,
+  `Status` enum('Inactive','Active') DEFAULT 'Active',
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedOn` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` varchar(255) DEFAULT NULL,
+  `ModifiedOn` date DEFAULT NULL,
+  `LastLoginIP` varchar(50) DEFAULT NULL,
+  `status1` enum('Release','Upcoming') DEFAULT NULL,
+  `LoginStatus` int(11) DEFAULT '0',
+  `Photo` text,
+  `ActivatedOn` datetime DEFAULT NULL,
+  `InActivatedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `trailer_tb`
+--
+
+INSERT INTO `trailer_tb` (`Id`, `FilmId`, `FilmName`, `TrailerLink`, `Details`, `LastLoginDate`, `Status`, `CreatedBy`, `CreatedOn`, `ModifiedBy`, `ModifiedOn`, `LastLoginIP`, `status1`, `LoginStatus`, `Photo`, `ActivatedOn`, `InActivatedOn`) VALUES
+(1, '1', 'Oru Yamandan Prema Kadha', 'https://youtu.be/qV9de8pJCPw', 'Presenting you the Official TEASER Of  Malayalam Movie oru yamandan prema kadha Directed by B C Noufal.\r\n', NULL, 'Active', 'admin', '2019-04-26 13:05:09', NULL, NULL, NULL, NULL, 0, 'b300009a3c469031495dffcacb9a6479.jpg', '2019-04-26 13:05:08', NULL),
+(3, '2', 'Athiran', 'https://youtu.be/4DTsMtDcbNo', 'Athiran Official Trailer | Fahad Faasil | Sai Pallavi | Vivek | Releasing on April 12', NULL, 'Active', 'admin', '2019-04-26 14:39:28', NULL, NULL, NULL, NULL, 0, 'e9b067c6e76033862084c7d8498db99d.jpg', '2019-04-26 14:39:27', NULL),
+(4, '7', 'The Curse Of The Weeping Woman', 'yyyyy', 'fgg', NULL, 'Active', 'admin', '2019-04-29 14:07:07', 'admin', '2019-04-29', NULL, NULL, 0, '119ed37bfc7feb026b6d33a82e42b142.jpg', '2019-04-29 14:49:45', NULL);
