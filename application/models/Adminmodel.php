@@ -121,8 +121,9 @@ public function adminLoginCheck($userId, $userPass)
                             
                             $this->db->insert('sys_user_log',$insertData);
                             $_SESSION['ADMIN_USER_LOG_ID'] =  $this->db->insert_id(); // this is for inserting user actions into user_log_detail table
-                          
-                        return TRUE;
+
+                    $admin_array = array('ADMIN_ID' => $userId, 'ADMIN_PASS' => $userPass, 'ADMIN_USER_TYPE' => $row->UserType, 'ADMIN_LOGIN_ID' => $row->Id, 'PROFILE_PHOTO' =>  $row->ProfilePhoto);
+                    return  $admin_array;
                    }     
                 }
            
