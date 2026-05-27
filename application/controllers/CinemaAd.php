@@ -316,8 +316,8 @@ class CinemaAd extends CI_Controller
 
 
 
-			if ($userId == $_SESSION["ADMIN_ID"]) // checking the login user id to change profile pic
-				$_SESSION['PROFILE_PHOTO'] = $profileImage;
+			if ($userId == $this->session->userdata('ADMIN_ID')) // checking the login user id to change profile pic
+				$this->session->set_userdata('PROFILE_PHOTO', $profileImage);
 		}
 
 		echo "success";
@@ -394,7 +394,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				'ProfilePhoto' => $profileImage
 
 
@@ -409,7 +409,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 				'ProfilePhoto' => $profileImage
 
@@ -584,7 +584,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 
 
 
@@ -597,7 +597,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 			);
@@ -868,7 +868,7 @@ class CinemaAd extends CI_Controller
 	// 				'Status' => $this->input->post('Status'),
 	//                                 'ActivatedOn' => $activatedOn,
 	//                                 'InActivatedOn' => $InActivatedOn,
-	//                                 'CreatedBy' => $_SESSION['ADMIN_ID'],
+	//                                 'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 	//                                 'Photo' => $image,
 	//                                 'Image' => $uploads
 	//                                  );
@@ -894,7 +894,7 @@ class CinemaAd extends CI_Controller
 	// 				'Status' => $this->input->post('Status'),
 	//                                 'ActivatedOn' => $activatedOn,
 	//                                 'InActivatedOn' => $InActivatedOn,
-	//                                 'ModifiedBy' => $_SESSION['ADMIN_ID'],
+	//                                 'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 	//                                 'ModifiedOn' => date('Y-m-d H:i:s'),
 	//                                 'Photo' => $image,
 	//                                 'Image' => $uploads
@@ -997,7 +997,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				'Photo' => $image,
 				'Image' => $uploads
 			);
@@ -1018,7 +1018,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 				'Photo' => $image,
 				'Image' => $uploads
@@ -1190,7 +1190,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 
 
 
@@ -1204,7 +1204,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 			);
@@ -1394,7 +1394,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				'Details' => $this->input->post('Details'),
 				'Photo' => $songImage
 
@@ -1412,7 +1412,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 				'Details' => $this->input->post('Details'),
 				'Photo' => $songImage
@@ -1575,7 +1575,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				'Photo' => $crewImage
 
 
@@ -1590,7 +1590,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 			);
@@ -1779,7 +1779,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				'Photo' => $Image
 
 			);
@@ -1796,7 +1796,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 				'Photo' => $Image
 
@@ -1972,7 +1972,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				//'Photo' => $songImage
 
 
@@ -1990,7 +1990,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 			);
@@ -2153,7 +2153,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 
 
 
@@ -2166,7 +2166,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 			);
@@ -2326,7 +2326,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 
 
 
@@ -2340,7 +2340,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 			);
@@ -2396,7 +2396,7 @@ class CinemaAd extends CI_Controller
 	}
 	public function saveArticle()
 	{
-		$uid = $_SESSION['ADMIN_ID'];
+		$uid = $this->session->userdata('ADMIN_ID');
 		//$catid	=$_POST["catid"];
 		//$languageid	=$_POST["lanid"];
 		$title		= $_POST["head"];
@@ -2603,7 +2603,7 @@ class CinemaAd extends CI_Controller
 				'Space' => $this->input->post('Space'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				'Photo' => $Image,
 
 
@@ -2618,7 +2618,7 @@ class CinemaAd extends CI_Controller
 				'Space' => $this->input->post('Space'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 
@@ -3358,7 +3358,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 
 				'Photo' => $slideImage
 
@@ -3371,7 +3371,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 
 				'Photo' => $slideImage
@@ -3571,7 +3571,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'CreatedBy' => $_SESSION['ADMIN_ID'],
+				'CreatedBy' => $this->session->userdata('ADMIN_ID'),
 				'Photo' => $Image
 
 			);
@@ -3588,7 +3588,7 @@ class CinemaAd extends CI_Controller
 				'Status' => $this->input->post('Status'),
 				'ActivatedOn' => $activatedOn,
 				'InActivatedOn' => $InActivatedOn,
-				'ModifiedBy' => $_SESSION['ADMIN_ID'],
+				'ModifiedBy' => $this->session->userdata('ADMIN_ID'),
 				'ModifiedOn' => date('Y-m-d H:i:s'),
 				'Photo' => $Image
 			);

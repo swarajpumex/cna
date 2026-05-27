@@ -70,241 +70,284 @@ var save_method; //for save method string
 });
 
 
-function addData()
-{
-    save_method = 'add';
-  $('#btnSave').text('Save'); //change button text
-    $('#btnSave').removeAttr('disabled'); //set button disable
-  $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-    $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Add New'); // Set Title to Bootstrap modal title
-    
-    //showing image upload area when add data.
-    $('#hideWhenEdit').show();
+function addData() {
+	save_method = "add";
+	$("#btnSave").text("Save"); //change button text
+	$("#btnSave").removeAttr("disabled"); //set button disable
+	$("#form")[0].reset(); // reset form on modals
+	$(".form-group").removeClass("has-error"); // clear error class
+	$(".help-block").empty(); // clear error string
+	$("#modal_form").modal("show"); // show bootstrap modal
+	$(".modal-title").text("Add New"); // Set Title to Bootstrap modal title
 
-    $("#divError").hide();
-    $("#divMessage").hide();
-    $('#hidID').val("0");
+	if (typeof setQuillText === "function") {
+		setQuillText("Details", "");
+	}
+
+	//showing image upload area when add data.
+	$("#hideWhenEdit").show();
+
+	$("#divError").hide();
+	$("#divMessage").hide();
+	$("#hidID").val("0");
 }
 
+function editData(id) {
+	var EDIT_URL =
+		$("#hidBASE_URL").val() +
+		"index.php/" +
+		ADMIN_CONTROLLER +
+		"/getEditShortfilm";
 
-function editData(id)
-{
-    var EDIT_URL  =  $("#hidBASE_URL").val() + "index.php/" + ADMIN_CONTROLLER + "/getEditShortfilm";
-  
-  save_method = 'add';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-    
-    // hiding image upload area when editing data.
-    $('#hideWhenEdit').hide();
-    
-    $("#divError").hide();
-    $("#divMessage").hide();
-  
-    //Ajax Load data from ajax
-    $.ajax({
-        url : EDIT_URL + "/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
+	save_method = "add";
+	$("#form")[0].reset(); // reset form on modals
+	$(".form-group").removeClass("has-error"); // clear error class
+	$(".help-block").empty(); // clear error string
 
-            $('[name="id"]').val(data.Id);
-      $('[name="hidID"]').val(data.Id);
-      
-            $('[name="Film_Id"]').val(data.FilmId);
-        $('[name="Film_Name"]').val(data.FilmName);
-      $('[name="URL"]').val(data.TrailerLink);
-            $('[name="Details"]').val(data.Details);
-            //$('[name="dob"]').datepicker('update',data.dob);
-           // $('[name="Password"]').val("xxxxxxxxxxxxxx");
-           // $('[name="Retype_Password"]').val("xxxxxxxxxxxxxx");
-            $('[name="Count_Title"]').val(data.countTitle);
-      //$('[name="Sex"]').val(data.Sex);
-      $('[name="Status"]').val(data.Status);
-      
-      $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Trailer'); // Set title to Bootstrap modal title
+	// hiding image upload area when editing data.
+	$("#hideWhenEdit").hide();
 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
+	$("#divError").hide();
+	$("#divMessage").hide();
+
+	//Ajax Load data from ajax
+	$.ajax({
+		url: EDIT_URL + "/" + id,
+		type: "GET",
+		dataType: "JSON",
+		success: function (data) {
+			$('[name="id"]').val(data.Id);
+			$('[name="hidID"]').val(data.Id);
+
+			$('[name="Film_Id"]').val(data.FilmId);
+			$('[name="Film_Name"]').val(data.FilmName);
+			$('[name="URL"]').val(data.TrailerLink);
+			$('[name="Details"]').val(data.Details);
+			if (typeof setQuillText === "function") {
+				setQuillText("Details", data.Details || "");
+			}
+			//$('[name="dob"]').datepicker('update',data.dob);
+			// $('[name="Password"]').val("xxxxxxxxxxxxxx");
+			// $('[name="Retype_Password"]').val("xxxxxxxxxxxxxx");
+			$('[name="Count_Title"]').val(data.countTitle);
+			//$('[name="Sex"]').val(data.Sex);
+			$('[name="Status"]').val(data.Status);
+
+			$("#modal_form").modal("show"); // show bootstrap modal when complete loaded
+			$(".modal-title").text("Edit Trailer"); // Set title to Bootstrap modal title
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Error get data from ajax");
+		},
+	});
 }
 
-
-function reloadTable()
-{
-   
-    table.ajax.reload(null,false); //reload datatable ajax 
+function reloadTable() {
+	table.ajax.reload(null, false); //reload datatable ajax
 }
 
+function save() {
+	if (typeof syncQuillFieldsAndRun === "function") {
+		syncQuillFieldsAndRun(function () {
+			saveAfterEditorSync();
+		});
+		return;
+	}
 
-function save()
-{
-    
-    
-    
-    //------------------------------- VALIDATION START -----
+	saveAfterEditorSync();
+}
 
-var formUtils = {
-    isValidEmail: function (email) {
-      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-      return regex.test(email);
-    },
-    //if no form errors, remove or hide error messages
-    clearErrors: function () {
-      $('#emailAlert').remove();
-      $('#form .help-block').hide();
-      $('#form .form-group').removeClass('has-error');
-    },
-    //upon form clear remove the checked class and replace with unchecked class. Also reset Google ReCaptcha
-    clearForm: function () {
-      $('#form .glyphicon').removeClass('glyphicon-check').addClass('glyphicon-unchecked').css({color: ''});
-      $('#form input,textarea').val("");
-      
-    },
-    //when error, show error messages and track that error exists
-    addError: function ($input) {
-      var parentFormGroup = $input.parents('.form-group');
-      parentFormGroup.children('.help-block').show();
-      parentFormGroup.addClass('has-error');
-    },
-    addAjaxMessage: function(msg, isError) {
-      $("#btnSave").after('<div id="emailAlert" class="alert alert-' + (isError ? 'danger' : 'success') + '" style="margin-top: 5px;">' + $('<div/>').text(msg).html() + '</div>');
-    }
-  };
-  
-    
-    var url;
-    var base_url;
-    var adminController;
+function saveAfterEditorSync() {
+	//------------------------------- VALIDATION START -----
 
-      var $btn = $(this);
-      $btn.val('Saving');
-      formUtils.clearErrors();
+	var formUtils = {
+		isValidEmail: function (email) {
+			var regex =
+				/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			return regex.test(email);
+		},
+		//if no form errors, remove or hide error messages
+		clearErrors: function () {
+			$("#emailAlert").remove();
+			$("#form .help-block").hide();
+			$("#form .form-group").removeClass("has-error");
+		},
+		//upon form clear remove the checked class and replace with unchecked class. Also reset Google ReCaptcha
+		clearForm: function () {
+			$("#form .glyphicon")
+				.removeClass("glyphicon-check")
+				.addClass("glyphicon-unchecked")
+				.css({ color: "" });
+			$("#form input,textarea").val("");
+		},
+		//when error, show error messages and track that error exists
+		addError: function ($input) {
+			var parentFormGroup = $input.parents(".form-group");
+			parentFormGroup.children(".help-block").show();
+			parentFormGroup.addClass("has-error");
+		},
+		addAjaxMessage: function (msg, isError) {
+			$("#btnSave").after(
+				'<div id="emailAlert" class="alert alert-' +
+					(isError ? "danger" : "success") +
+					'" style="margin-top: 5px;">' +
+					$("<div/>").text(msg).html() +
+					"</div>",
+			);
+		},
+	};
 
-      var repass =false;
-      //do a little client-side validation -- check that each field has a value and e-mail field is in proper format
-      //use bootstrap validator (https://github.com/1000hz/bootstrap-validator) if provided, otherwise a bit of custom validation
-      var $form = $("#form"),
-        hasErrors = false;
-      if ($form.validator) {
-        hasErrors =  $form.validator('validate').hasErrors;
-      } else {
-        $('#form input, #form textarea').not('.optional').each(function() {
-          var $this = $(this);
-    
-          if (($this.is(':checkbox') && !$this.is(':checked')) || !$this.val()) {
-            hasErrors = true;
-            formUtils.addError($(this));
-          }
-    
-          //------ validating comboboxes -----
-    
-    var $userGroup = $('#User_Group');
-    var $sex       = $('#Sex');
-                
-    if ($userGroup.val()==""){
-      
-      hasErrors = true;
-      formUtils.addError($userGroup.parent());
-      }
-                  
-                 if ($sex.val()==""){
-      
-      hasErrors = true;
-      formUtils.addError($sex.parent());
-      } 
-                  
-           // matching password fields
-           
-            var $password = $('#Password');
-                var $rePassword = $('#Retype_Password');
-    
-                
-    if ($password.val()!=$rePassword.val()){
-      
-      repass = true;
-      formUtils.addError($rePassword.parent());
-      } 
-           
-           
-      
-        });
-        
-      }
-     
-      if (hasErrors) {
-    
-    var errorMsg   = '<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
-                    errorMsg  +='<strong style="color:white;">Error ! Missing required fields.</strong>';
-            
-    $('#divError').show();
-    $('#divError').html(errorMsg);
-        $btn.val('reset');
-        
-        // error msg alert closing in 2 sec.
-        $("#divError").fadeTo(2000, 500).slideUp(500, function(){
-    $(".alert").hide();
-          });                       
-        
-        return false;
-      }
+	var url;
+	var base_url;
+	var adminController;
 
-        //---------------------- Repass checking --->
-      if (repass) {
-    
-    var errorMsg   = '<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
-                    errorMsg  +='<strong style="color:white;">Error ! Miss matching password and retype password fields.</strong>';
-    $('#divError').show();
-    $('#divError').html(errorMsg);
-        $btn.val('reset');
-        
-        // error msg alert closing in 2 sec.
-        $("#divError").fadeTo(2000, 500).slideUp(500, function(){
-    $(".alert").hide();
-          });                       
-        
-        return false;
-      }
-      
+	var $btn = $(this);
+	$btn.val("Saving");
+	formUtils.clearErrors();
 
-    
-    $(".alert").hide(); // hiding all the message alert.
-    $('#btnSave').text('Saving...'); //change button text
-    $('#btnSave').attr('disabled',true); //set button disable 
+	var repass = false;
+	//do a little client-side validation -- check that each field has a value and e-mail field is in proper format
+	//use bootstrap validator (https://github.com/1000hz/bootstrap-validator) if provided, otherwise a bit of custom validation
+	var $form = $("#form"),
+		hasErrors = false;
+	$("#form input:visible, #form textarea:visible, #form select:visible")
+		.not(".optional")
+		.each(function () {
+			var $this = $(this);
 
-    if(save_method == 'add') {
-        base_url = $("#hidBASE_URL").val(); // for delete after saving .
-        adminController = $("#hidAdminController").val();
-        
-        url = $("#hidBASE_URL").val() + "index.php/" + ADMIN_CONTROLLER + "/saveShortfilm";
-    } 
+			if (($this.is(":checkbox") && !$this.is(":checked")) || !$this.val()) {
+				hasErrors = true;
+				formUtils.addError($(this));
+			}
 
-  // ajax adding data to database
-  // FormData is using for ajax file uploading.
-  
- if (typeof FormData == 'undefined')
-  {
-      bootbox.alert("Oops,Your Browser Don't support FormData API! Use IE 10 or Above!");
-      return false;
-  }
-  
-        var formData = new FormData($('#form')[0]);
-         var fileField = _('userfile'); // getting the file field object.
-          
-         //formData.append('User_Id', $("#User_Id").val());
-         
-         //checking file are a is hidden or not. this is only for add data.
-         
-         /*if($("#hideWhenEdit").is(":visible")) 
+			//------ validating comboboxes -----
+
+			var $userGroup = $("#User_Group");
+			var $sex = $("#Sex");
+
+			if ($userGroup.length && $userGroup.val() == "") {
+				hasErrors = true;
+				formUtils.addError($userGroup.parent());
+			}
+
+			if ($sex.length && $sex.val() == "") {
+				hasErrors = true;
+				formUtils.addError($sex.parent());
+			}
+
+			// matching password fields
+
+			var $password = $("#Password");
+			var $rePassword = $("#Retype_Password");
+
+			if (
+				$password.length &&
+				$rePassword.length &&
+				$password.val() != $rePassword.val()
+			) {
+				repass = true;
+				formUtils.addError($rePassword.parent());
+			}
+		});
+
+	if (hasErrors) {
+		var errorMsg =
+			'<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
+		errorMsg +=
+			'<strong style="color:white;">Error ! Missing required fields.</strong>';
+
+		$("#divError").show();
+		$("#divError").html(errorMsg);
+		$btn.val("reset");
+
+		// error msg alert closing in 2 sec.
+		$("#divError")
+			.fadeTo(2000, 500)
+			.slideUp(500, function () {
+				$(".alert").hide();
+			});
+
+		return false;
+	}
+
+	var detailsVal = $.trim($("#Details").val());
+	var detailsText = $.trim($("<div>").html(detailsVal).text());
+	var hasDetailsMedia = /<(img|iframe|video|embed)\b/i.test(detailsVal);
+	if (!detailsText && !hasDetailsMedia) {
+		hasErrors = true;
+		formUtils.addError($("#Details"));
+
+		var detailsErrorMsg =
+			'<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
+		detailsErrorMsg +=
+			'<strong style="color:white;">Error ! Details field is required.</strong>';
+
+		$("#divError").show();
+		$("#divError").html(detailsErrorMsg);
+		$btn.val("reset");
+
+		$("#divError")
+			.fadeTo(2000, 500)
+			.slideUp(500, function () {
+				$(".alert").hide();
+			});
+
+		return false;
+	}
+
+	//---------------------- Repass checking --->
+	if (repass) {
+		var errorMsg =
+			'<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
+		errorMsg +=
+			'<strong style="color:white;">Error ! Miss matching password and retype password fields.</strong>';
+		$("#divError").show();
+		$("#divError").html(errorMsg);
+		$btn.val("reset");
+
+		// error msg alert closing in 2 sec.
+		$("#divError")
+			.fadeTo(2000, 500)
+			.slideUp(500, function () {
+				$(".alert").hide();
+			});
+
+		return false;
+	}
+
+	$(".alert").hide(); // hiding all the message alert.
+	$("#btnSave").text("Saving..."); //change button text
+	$("#btnSave").attr("disabled", true); //set button disable
+
+	if (save_method == "add") {
+		base_url = $("#hidBASE_URL").val(); // for delete after saving .
+		adminController = $("#hidAdminController").val();
+
+		url =
+			$("#hidBASE_URL").val() +
+			"index.php/" +
+			ADMIN_CONTROLLER +
+			"/saveShortfilm";
+	}
+
+	// ajax adding data to database
+	// FormData is using for ajax file uploading.
+
+	if (typeof FormData == "undefined") {
+		bootbox.alert(
+			"Oops,Your Browser Don't support FormData API! Use IE 10 or Above!",
+		);
+		return false;
+	}
+
+	var formData = new FormData($("#form")[0]);
+	var fileField = _("userfile"); // getting the file field object.
+
+	//formData.append('User_Id', $("#User_Id").val());
+
+	//checking file are a is hidden or not. this is only for add data.
+
+	/*if($("#hideWhenEdit").is(":visible")) 
             formData.append('userfile', fileField.files[0]); 
     
             //formData.append('userfile', $("#userfile").val());
@@ -317,123 +360,113 @@ var formUtils = {
      formData.append('li_token', CSRF_TOCKEN);
          
     */
-    
-   // alert(formData);
-    //return;
-    $.ajax({
-        url : url,
-        type: "POST",
-         //data: $('#form').serialize(),
-        data:  formData,
-        dataType: "text",
-        processData: false,
-        contentType: false,
-      cache: false,
-        enctype: 'multipart/form-data',
-        success: function(res)
-        {
-    
-    //console.log(res);
-    //return;
-             if(res.indexOf("Exists")>=0)
-      {
-        var errorMsg    = '<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
-            errorMsg    +='<strong style="color:white;">Error ! This user id already exists.</strong>';
-          
-        $('#divError').show();
-        $('#divError').html(errorMsg);
-        $btn.val('reset');
-                                              
-                                reloadTable();
-                                $("#hidBASE_URL").val(base_url); // for delete after load table.
-                                $("#hidAdminController").val(adminController);
-                                $('#upload-file-info').html(""); //clearing the file.
-                                $('#btnSave').text('Save'); //change button text
-                                $('#btnSave').attr('disabled',false); //set button enable 
-        
-                                return false;
-    
-      }
-                  
-                  // if error
-                  if(res.indexOf("Error")>=0)
-      {
-        var errorMsg    = '<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
-            errorMsg    +='<strong style="color:white;">' + res +'</strong>';
-          
-        $('#divError').show();
-        $('#divError').html(errorMsg);
-        $btn.val('reset');
-                
-                                reloadTable();
-                                $("#hidBASE_URL").val(base_url); // for delete after load table.
-                                $("#hidAdminController").val(adminController);
-                                $('#upload-file-info').html(""); //clearing the file.
-                                $('#btnSave').text('Save'); //change button text
-                                $('#btnSave').attr('disabled',false); //set button enable 
-        
-                
-                                return false;
-    
-      }
-                  
-                  
-     
-            
-            
-            
-                var saveOrEdit ="saved";
-                var EDIT_ID = $("#hidID").val();
-    if(EDIT_ID>0)
-                    var saveOrEdit ="edited";
-      
-      
-    var msg   = '<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
-      msg +='<strong style="color:white;">Success! Data has been ' + saveOrEdit  + ' successfully!.</strong>';
-      $('#divMessage').html(msg);
-      $('#divMessage').show();
-        
-      // For message alert closing in 2 sec.
-      $("#divMessage").fadeTo(2000, 500).slideUp(500, function(){
-        
-        $(".alert").hide();
-        //$("#form")[0].reset(); // reseting form
-      
-      });
-                $btn.val('Save');  
-                if(EDIT_ID==0)
-                     formUtils.clearForm();               
-                
-                //$('#modal_form').modal('hide');
-                reloadTable();
-                $("#hidBASE_URL").val(base_url); // for delete after load table.
-                $("#hidAdminController").val(adminController);
-                $('#upload-file-info').html(""); //clearing the file.
-            $('#btnSave').text('Save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
 
+	// alert(formData);
+	//return;
+	$.ajax({
+		url: url,
+		type: "POST",
+		//data: $('#form').serialize(),
+		data: formData,
+		dataType: "text",
+		processData: false,
+		contentType: false,
+		cache: false,
+		enctype: "multipart/form-data",
+		success: function (res) {
+			//console.log(res);
+			//return;
+			if (res.indexOf("Exists") >= 0) {
+				var errorMsg =
+					'<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
+				errorMsg +=
+					'<strong style="color:white;">Error ! This user id already exists.</strong>';
 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            var errorMsg    = '<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
-      errorMsg  +='<strong style="color:white;">Error ! Error while saving data.</strong>';
-            
-      $('#divError').show();
-      $('#divError').html(errorMsg);
-        
-      // For message alert closing in 2 sec.
-      $("#divError").fadeTo(2000, 500).slideUp(500, function(){
-        
-        $("#divError").hide();
-        
-      });
-            
-            $('#btnSave').text('Save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
+				$("#divError").show();
+				$("#divError").html(errorMsg);
+				$btn.val("reset");
 
-        }
-    });
+				reloadTable();
+				$("#hidBASE_URL").val(base_url); // for delete after load table.
+				$("#hidAdminController").val(adminController);
+				$("#upload-file-info").html(""); //clearing the file.
+				$("#btnSave").text("Save"); //change button text
+				$("#btnSave").attr("disabled", false); //set button enable
+
+				return false;
+			}
+
+			// if error
+			if (res.indexOf("Error") >= 0) {
+				var errorMsg =
+					'<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
+				errorMsg += '<strong style="color:white;">' + res + "</strong>";
+
+				$("#divError").show();
+				$("#divError").html(errorMsg);
+				$btn.val("reset");
+
+				reloadTable();
+				$("#hidBASE_URL").val(base_url); // for delete after load table.
+				$("#hidAdminController").val(adminController);
+				$("#upload-file-info").html(""); //clearing the file.
+				$("#btnSave").text("Save"); //change button text
+				$("#btnSave").attr("disabled", false); //set button enable
+
+				return false;
+			}
+
+			var saveOrEdit = "saved";
+			var EDIT_ID = $("#hidID").val();
+			if (EDIT_ID > 0) var saveOrEdit = "edited";
+
+			var msg =
+				'<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
+			msg +=
+				'<strong style="color:white;">Success! Data has been ' +
+				saveOrEdit +
+				" successfully!.</strong>";
+			$("#divMessage").html(msg);
+			$("#divMessage").show();
+
+			// For message alert closing in 2 sec.
+			$("#divMessage")
+				.fadeTo(2000, 500)
+				.slideUp(500, function () {
+					$(".alert").hide();
+					//$("#form")[0].reset(); // reseting form
+				});
+			$btn.val("Save");
+			if (EDIT_ID == 0) formUtils.clearForm();
+
+			//$('#modal_form').modal('hide');
+			reloadTable();
+			$("#hidBASE_URL").val(base_url); // for delete after load table.
+			$("#hidAdminController").val(adminController);
+			$("#upload-file-info").html(""); //clearing the file.
+			$("#btnSave").text("Save"); //change button text
+			$("#btnSave").attr("disabled", false); //set button enable
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			var errorMsg =
+				'<button style="color:white;" type="button" class="close"  aria-hidden="true" onclick="$(\'.alert\').hide()"> &times; </button>';
+			errorMsg +=
+				'<strong style="color:white;">Error ! Error while saving data.</strong>';
+
+			$("#divError").show();
+			$("#divError").html(errorMsg);
+
+			// For message alert closing in 2 sec.
+			$("#divError")
+				.fadeTo(2000, 500)
+				.slideUp(500, function () {
+					$("#divError").hide();
+				});
+
+			$("#btnSave").text("Save"); //change button text
+			$("#btnSave").attr("disabled", false); //set button enable
+		},
+	});
 }
 
 function deleteData(id)

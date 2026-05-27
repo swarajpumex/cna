@@ -211,8 +211,8 @@ class Shortfilm_model extends CI_Model {
          //----- inseting into user_log table
                      
                             $insertData= array (
-                            'UserLogId' => $_SESSION['ADMIN_USER_LOG_ID'],
-                            'UserName' => $_SESSION['ADMIN_ID'],
+			'UserLogId' => $this->session->userdata('ADMIN_USER_LOG_ID'),
+			'UserName' => $this->session->userdata('ADMIN_ID'),
                             'Actions' => $action,
                             'ActionIP' => getRequestIPAddress()    
                             );
