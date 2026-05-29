@@ -35,6 +35,20 @@
 <!-- Quill -->
 <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
 
+<style>
+  .ql-editor {
+    line-height: 1.35;
+  }
+
+  .ql-editor p {
+    margin: 0;
+  }
+
+  .ql-editor p+p {
+    margin-top: 0.25em;
+  }
+</style>
+
 <script>
   window.quillInstances = window.quillInstances || {};
   window.quillConfigReady = window.quillConfigReady || false;

@@ -10,6 +10,16 @@
          display: block;
          margin: 12px 0;
       }
+
+      /* .detail-content p {
+         margin: 0 0 0.35em;
+         line-height: 1.30;
+         font-size: 16px;
+      } */
+
+      .detail-content p:last-child {
+         margin-bottom: 0;
+      }
    </style>
    <?php foreach ($films as $values) { ?>
       <?php

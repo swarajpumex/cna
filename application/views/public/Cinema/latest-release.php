@@ -43,6 +43,16 @@
          font-weight: normal;
       }
 
+      .release-content p {
+         margin: 0 0 0.35em;
+         line-height: 1.45;
+         font-size: 16px;
+      }
+
+      .release-content p:last-child {
+         margin-bottom: 0;
+      }
+
       .banner-content p img,
       .banner-content img {
          max-width: 100%;
@@ -73,9 +83,9 @@
                                  <img src="<?php echo base_url(); ?>uploads/film_image/<?php echo $val['Image']; ?>" alt="banner" class="img-fluid" />
                                  <div class="banner-content">
                                     <h5 class="mb-0"><?php echo $val['FilmName']; ?></h5>
-                                    <p class="mb-2" style="margin-top: 10px;">
+                                    <div class="mb-2 release-content" style="margin-top: 10px;">
                                        <?php echo html_entity_decode(stripslashes((string) $val['Details']), ENT_QUOTES, 'UTF-8'); ?>
-                                    </p>
+                                    </div>
                                  </div>
                               </div>
                            </div>
