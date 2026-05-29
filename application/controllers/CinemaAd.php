@@ -914,6 +914,9 @@ class CinemaAd extends CI_Controller
 	{
 		error_reporting(0);
 		$id		= $this->input->post("id");
+		$detailsRaw = $this->input->post('Details', false);
+		$details = html_entity_decode(stripslashes((string) $detailsRaw), ENT_QUOTES, 'UTF-8');
+		$details = $this->persistInlineBase64Images($details);
 		// --- checking the existance start;
 
 		$db     = new Database();
@@ -989,7 +992,7 @@ class CinemaAd extends CI_Controller
 				'FilmName' => trim($this->input->post('Film_Name')),
 				'Language' => $this->input->post('Language'),
 				'Category' => $this->input->post('Category'),
-				'Details' => $this->input->post('Details'),
+				'Details' => $details,
 				'DateCreated' => $edate,
 				'By_Line' => $this->input->post('By_Line'),
 				'Place' => $this->input->post('Place'),
@@ -1010,7 +1013,7 @@ class CinemaAd extends CI_Controller
 				//'Category' => $Category,
 				'Language' => $this->input->post('Language'),
 				'Category' => $this->input->post('Category'),
-				'Details' => $this->input->post('Details'),
+				'Details' => $details,
 				'DateCreated' => $edate,
 				'By_Line' => $this->input->post('By_Line'),
 				'Place' => $this->input->post('Place'),
@@ -1026,15 +1029,83 @@ class CinemaAd extends CI_Controller
 
 			);
 		}
-		echo '<pre>', print_r($data), '</pre>';
 		$res = $this->Film_model->saveData($data, $id);
 		echo json_encode(array('message' => 'saved successfully.'));
+	}
+
+	private function persistInlineBase64Images($html)
+	{
+		if (empty($html) || strpos($html, 'data:image') === false) {
+			return $html;
+		}
+
+		$relativeDir = 'uploads/editor_image/';
+		$absoluteDir = FCPATH . $relativeDir;
+		if (!is_dir($absoluteDir)) {
+			@mkdir($absoluteDir, 0755, true);
+		}
+
+		$extensionMap = array(
+			'jpeg' => 'jpg',
+			'jpg' => 'jpg',
+			'png' => 'png',
+			'gif' => 'gif',
+			'webp' => 'webp',
+			'svg+xml' => 'svg'
+		);
+
+		$counter = 0;
+		$updatedHtml = preg_replace_callback(
+			'/<img\\b([^>]*?)\\bsrc\\s*=\\s*(["\\\'])(data:image\\/([a-zA-Z0-9.+-]+);base64,([^"\\\']+))\\2([^>]*)>/i',
+			function ($matches) use ($absoluteDir, $relativeDir, $extensionMap, &$counter) {
+				$mimePart = strtolower($matches[4]);
+				$payload = (string) $matches[5];
+
+				if (strpos($payload, '&') !== false) {
+					$payload = substr($payload, 0, strpos($payload, '&'));
+				}
+
+				$base64Data = preg_replace('/\\s+/', '', $payload);
+				$base64Data = str_replace(' ', '+', $base64Data);
+				$binary = base64_decode($base64Data, true);
+
+				if ($binary === false) {
+					$padding = strlen($base64Data) % 4;
+					if ($padding > 0) {
+						$base64Data .= str_repeat('=', 4 - $padding);
+						$binary = base64_decode($base64Data, true);
+					}
+				}
+
+				if ($binary === false || strlen($binary) < 32) {
+					return $matches[0];
+				}
+
+				$extension = isset($extensionMap[$mimePart]) ? $extensionMap[$mimePart] : 'png';
+				$fileName = 'quill_' . date('YmdHis') . '_' . substr(md5($binary . microtime(true) . $counter), 0, 12) . '.' . $extension;
+				$absolutePath = $absoluteDir . $fileName;
+
+				if (@file_put_contents($absolutePath, $binary) === false) {
+					return $matches[0];
+				}
+
+				$counter++;
+				$newSrc = base_url($relativeDir . $fileName);
+				return '<img' . $matches[1] . 'src="' . $newSrc . '"' . $matches[6] . '>';
+			},
+			$html
+		);
+
+		return $updatedHtml !== null ? $updatedHtml : $html;
 	}
 
 
 	public function getEditRelease($id)
 	{
 		$data = $this->Film_model->getById($id);
+		if (isset($data->Details)) {
+			$data->Details = html_entity_decode(stripslashes((string) $data->Details), ENT_QUOTES, 'UTF-8');
+		}
 		echo json_encode($data);
 	}
 

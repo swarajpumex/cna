@@ -3,6 +3,14 @@
 
 <head>
    <?php include 'top-css.php'; ?>
+   <style type="text/css">
+      .detail-content img {
+         max-width: 100%;
+         height: auto;
+         display: block;
+         margin: 12px 0;
+      }
+   </style>
    <?php foreach ($films as $values) { ?>
       <?php
       $metaTitle = htmlspecialchars($values['FilmName'], ENT_QUOTES, 'UTF-8');
@@ -113,15 +121,17 @@
                            <div class="banner-content">
                               <p><b><?php echo $values['By_Line']; ?></b></p>
                               <!-- <h5 class="mb-0" ><?php echo $values['FilmName']; ?></h5> -->
-                              <p class="mb-2">
+                              <div class="mb-2 detail-content">
                                  <b><?php echo $values['Place']; ?> : </b>
                                  <?php
-                                 $detailsInline = trim($values['Details']);
+                                 $detailsInline = trim((string) $values['Details']);
+                                 $detailsInline = html_entity_decode(stripslashes($detailsInline), ENT_QUOTES, 'UTF-8');
+                                 $detailsInline = preg_replace('/<\?xml[^>]*\?>/i', '', $detailsInline);
                                  $detailsInline = preg_replace('/^\s*<p[^>]*>/i', '', $detailsInline);
                                  $detailsInline = preg_replace('/<\/p>\s*$/i', '', $detailsInline);
                                  echo $detailsInline;
                                  ?>
-                              </p>
+                              </div>
                            </div>
 
                         </div>

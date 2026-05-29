@@ -467,7 +467,7 @@ function save() {
 			$btn.val("Save");
 			if (EDIT_ID == 0) formUtils.clearForm();
 
-			//$('#modal_form').modal('hide');
+			$("#modal_form").modal("hide");
 			reloadTable();
 			$("#hidBASE_URL").val(base_url); // for delete after load table.
 			$("#hidAdminController").val(adminController);
