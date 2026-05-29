@@ -131,7 +131,7 @@
                            <div class="banner-content">
                               <p><b><?php echo $values['By_Line']; ?></b></p>
                               <!-- <h5 class="mb-0" ><?php echo $values['FilmName']; ?></h5> -->
-                              <div class="mb-2 detail-content">
+                              <div class="mb-2 detail-content" style="font-size: 24px;">
                                  <b><?php echo $values['Place']; ?> : </b>
                                  <?php
                                  $detailsInline = trim((string) $values['Details']);

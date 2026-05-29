@@ -52,36 +52,11 @@
 <script>
   window.quillInstances = window.quillInstances || {};
   window.quillConfigReady = window.quillConfigReady || false;
-  var QUILL_SIZE_OPTIONS = ["12px", "14px", "16px", "18px", "20px", "24px", "30px", "36px", "48px"];
-
-  function ensureQuillSizePickerLabels(sizeOptions) {
-    var styleId = "quill-size-picker-labels";
-    if (document.getElementById(styleId)) {
-      return;
-    }
-
-    var css = [];
-    for (var i = 0; i < sizeOptions.length; i++) {
-      var val = sizeOptions[i];
-      css.push('.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="' + val + '"]::before{content:"' + val + '";}');
-      css.push('.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="' + val + '"]::before{content:"' + val + '";}');
-    }
-
-    var style = document.createElement("style");
-    style.id = styleId;
-    style.appendChild(document.createTextNode(css.join("\n")));
-    document.head.appendChild(style);
-  }
 
   function configureQuillFormats() {
     if (typeof Quill === "undefined" || window.quillConfigReady) {
       return;
     }
-
-    var Size = Quill.import("attributors/style/size");
-    Size.whitelist = QUILL_SIZE_OPTIONS;
-    Quill.register(Size, true);
-    ensureQuillSizePickerLabels(QUILL_SIZE_OPTIONS);
 
     window.quillConfigReady = true;
   }
@@ -120,9 +95,6 @@
       theme: "snow",
       modules: {
         toolbar: [
-          [{
-            size: QUILL_SIZE_OPTIONS
-          }],
           ["bold", "italic", "underline", "strike"],
           [{
             color: []
