@@ -3667,6 +3667,10 @@ class CinemaAd extends CI_Controller
 	{
 
 		$id     = $this->input->post("hidID");
+		$detailsRaw = $this->input->post('Details', false);
+		$details = html_entity_decode(stripslashes((string) $detailsRaw), ENT_QUOTES, 'UTF-8');
+		$details = $this->normalizeSocialVideoEmbeds($details);
+		$details = $this->persistInlineBase64Images($details);
 		// --- checking the existance start;
 
 		// $db     = new Database();
@@ -3746,7 +3750,7 @@ class CinemaAd extends CI_Controller
 			$data = array(
 				'FilmName' => trim($this->input->post('Film_Name')),
 				// 'FilmId' => $this->input->post('Film_Id'),
-				'Details' => $this->input->post('Details'),
+				'Details' => $details,
 				//'TrailerLink'=>"https://youtube.com/embed/".substr($this->input->post('URL'),17),
 				'TrailerLink' => $this->input->post('URL'),
 				'Status' => $this->input->post('Status'),
@@ -3762,7 +3766,7 @@ class CinemaAd extends CI_Controller
 				'FilmName' => trim($this->input->post('Film_Name')),
 
 				// 'FilmId' => $this->input->post('Film_Id'),
-				'Details' => $this->input->post('Details'),
+				'Details' => $details,
 				//'TrailerLink'=>"https://youtube.com/embed/".substr($this->input->post('URL'),17),
 				'TrailerLink' => $this->input->post('URL'),
 
@@ -3783,6 +3787,9 @@ class CinemaAd extends CI_Controller
 	public function getEditShortfilm($id)
 	{
 		$data = $this->Shortfilm_model->getById($id);
+		if (isset($data->Details)) {
+			$data->Details = html_entity_decode(stripslashes((string) $data->Details), ENT_QUOTES, 'UTF-8');
+		}
 		echo json_encode($data);
 	}
 
