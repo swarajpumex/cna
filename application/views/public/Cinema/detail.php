@@ -20,6 +20,26 @@
       .detail-content p:last-child {
          margin-bottom: 0;
       }
+
+      .detail-content .social-video-frame {
+         position: relative;
+         width: 100%;
+         height: 0;
+         padding-top: 56.25%;
+         margin: 12px 0;
+         overflow: hidden;
+         background: #000;
+      }
+
+      .detail-content .social-video-frame iframe {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100% !important;
+         height: 100% !important;
+         border: 0;
+         display: block;
+      }
    </style>
    <?php foreach ($films as $values) { ?>
       <?php
@@ -79,6 +99,54 @@
 
    <?php include 'header.php'; ?>
    <section class="main-sctn pt0">
+
+      <script>
+         (function() {
+            function isSocialEmbed(iframe) {
+               var src = (iframe.getAttribute('src') || '').toLowerCase();
+               return iframe.classList.contains('social-video-embed') ||
+                  iframe.classList.contains('social-video-embed-instagram') ||
+                  iframe.classList.contains('social-video-embed-facebook') ||
+                  src.indexOf('facebook.com/plugins/video.php') !== -1 ||
+                  (src.indexOf('instagram.com') !== -1 && src.indexOf('/embed') !== -1);
+            }
+
+            function wrapSocialEmbeds() {
+               var iframes = document.querySelectorAll('.detail-content iframe');
+               if (!iframes.length) {
+                  return;
+               }
+
+               iframes.forEach(function(iframe) {
+                  if (!isSocialEmbed(iframe)) {
+                     return;
+                  }
+
+                  if (iframe.parentElement && iframe.parentElement.classList.contains('social-video-frame')) {
+                     return;
+                  }
+
+                  var wrapper = document.createElement('div');
+                  wrapper.className = 'social-video-frame';
+
+                  iframe.removeAttribute('width');
+                  iframe.removeAttribute('height');
+                  iframe.style.setProperty('width', '100%', 'important');
+                  iframe.style.setProperty('height', '100%', 'important');
+                  iframe.style.setProperty('min-height', '0', 'important');
+                  iframe.style.setProperty('display', 'block', 'important');
+                  iframe.style.setProperty('margin', '0', 'important');
+
+                  var parent = iframe.parentNode;
+                  parent.insertBefore(wrapper, iframe);
+                  wrapper.appendChild(iframe);
+               });
+            }
+
+            document.addEventListener('DOMContentLoaded', wrapSocialEmbeds);
+            window.addEventListener('load', wrapSocialEmbeds);
+         })();
+      </script>
       <div class="container">
          <div class="row ">
 
@@ -161,20 +229,6 @@
                            <?php } ?>
                            </div>
                         </div>
-
-
-
-
-
-                        <?php
-
-                        //$title=$values['FilmName'];
-                        //$summary="Dedscccc";
-                        //$image="http://cinemanewsagency.com/uploads/film_image/a47b258484bca2a803fb05a5b0d6212c.jpg";
-                        //$url="http://cinemanewsagency.com/Site/detail/MarakkarArabikkadalinteSimham1";
-                        ?>
-                        <!--<a onClick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?php echo $url; ?>&title=<?php echo $title; ?>');"  href="javascript: void(0)">SHAREEEEEEE</a>-->
-
                   </div>
                   <!--.row-->
                </div>
