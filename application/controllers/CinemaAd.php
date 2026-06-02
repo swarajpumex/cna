@@ -916,6 +916,7 @@ class CinemaAd extends CI_Controller
 		$id		= $this->input->post("id");
 		$detailsRaw = $this->input->post('Details', false);
 		$details = html_entity_decode(stripslashes((string) $detailsRaw), ENT_QUOTES, 'UTF-8');
+		$details = $this->normalizeSocialVideoEmbeds($details);
 		$details = $this->persistInlineBase64Images($details);
 		// --- checking the existance start;
 
@@ -1097,6 +1098,115 @@ class CinemaAd extends CI_Controller
 		);
 
 		return $updatedHtml !== null ? $updatedHtml : $html;
+	}
+
+	private function normalizeSocialVideoEmbeds($html)
+	{
+		if (empty($html) || !is_string($html)) {
+			return $html;
+		}
+
+		$self = $this;
+
+		$html = preg_replace_callback(
+			'/<blockquote[^>]*class=["\'][^"\']*instagram-media[^"\']*["\'][^>]*>(.*?)<\/blockquote>(?:\s*<script[^>]*instagram\.com\/embed\.js[^>]*><\/script>)?/is',
+			function ($matches) use ($self) {
+				$block = isset($matches[0]) ? $matches[0] : '';
+				$inner = isset($matches[1]) ? $matches[1] : '';
+
+				$permalink = '';
+				if (preg_match('/data-instgrm-permalink\s*=\s*["\']([^"\']+)["\']/i', $block, $permMatch)) {
+					$permalink = $permMatch[1];
+				} elseif (preg_match('/<a[^>]*href\s*=\s*["\']([^"\']+)["\']/i', $inner, $anchorMatch)) {
+					$permalink = $anchorMatch[1];
+				}
+
+				return $self->buildInstagramEmbedIframe($permalink);
+			},
+			$html
+		);
+
+		$html = preg_replace_callback(
+			'/<blockquote[^>]*class=["\'][^"\']*fb-video[^"\']*["\'][^>]*>(.*?)<\/blockquote>(?:\s*<script[^>]*connect\.facebook\.net[^>]*><\/script>)?/is',
+			function ($matches) use ($self) {
+				$block = isset($matches[0]) ? $matches[0] : '';
+				$videoUrl = '';
+
+				if (preg_match('/data-href\s*=\s*["\']([^"\']+)["\']/i', $block, $hrefMatch)) {
+					$videoUrl = $hrefMatch[1];
+				}
+
+				return $self->buildFacebookEmbedIframe($videoUrl);
+			},
+			$html
+		);
+
+		$html = preg_replace_callback(
+			'/<p[^>]*>\s*(https?:\/\/(?:www\.)?(?:instagram\.com|instagr\.am)\/(?:reel|p|tv)\/[A-Za-z0-9_-]+\/?(?:\?[^<\s]*)?)\s*<\/p>/i',
+			function ($matches) use ($self) {
+				return $self->buildInstagramEmbedIframe($matches[1]);
+			},
+			$html
+		);
+
+		$html = preg_replace_callback(
+			'/<p[^>]*>\s*(https?:\/\/(?:www\.)?(?:facebook\.com|fb\.watch)\/[^<\s]+)\s*<\/p>/i',
+			function ($matches) use ($self) {
+				return $self->buildFacebookEmbedIframe($matches[1]);
+			},
+			$html
+		);
+
+		$html = preg_replace_callback(
+			'/<iframe\b[^>]*\bsrc\s*=\s*["\']([^"\']+)["\'][^>]*><\/iframe>/i',
+			function ($matches) use ($self) {
+				$src = isset($matches[1]) ? trim($matches[1]) : '';
+
+				if (preg_match('/(?:instagram\.com|instagr\.am)\/(?:reel|p|tv)\/[A-Za-z0-9_-]+/i', $src)) {
+					return $self->buildInstagramEmbedIframe($src);
+				}
+
+				if (preg_match('/(?:facebook\.com|fb\.watch)/i', $src) && !preg_match('/facebook\.com\/plugins\/video\.php/i', $src)) {
+					return $self->buildFacebookEmbedIframe($src);
+				}
+
+				return '<iframe class="social-video-embed" src="' . htmlspecialchars($src, ENT_QUOTES, 'UTF-8') . '" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>';
+			},
+			$html
+		);
+
+		return $html;
+	}
+
+	private function buildInstagramEmbedIframe($url)
+	{
+		$url = trim((string) $url);
+		if (empty($url)) {
+			return '';
+		}
+
+		if (preg_match('/(?:instagram\.com|instagr\.am)\/(reel|p|tv)\/([A-Za-z0-9_-]+)/i', $url, $match)) {
+			$embedUrl = 'https://www.instagram.com/' . strtolower($match[1]) . '/' . $match[2] . '/embed';
+			return '<iframe class="social-video-embed social-video-embed-instagram" src="' . htmlspecialchars($embedUrl, ENT_QUOTES, 'UTF-8') . '" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen loading="lazy"></iframe>';
+		}
+
+		return '<a href="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '</a>';
+	}
+
+	private function buildFacebookEmbedIframe($url)
+	{
+		$url = trim((string) $url);
+		if (empty($url)) {
+			return '';
+		}
+
+		if (preg_match('/facebook\.com\/plugins\/video\.php/i', $url)) {
+			$embedUrl = $url;
+		} else {
+			$embedUrl = 'https://www.facebook.com/plugins/video.php?href=' . rawurlencode($url) . '&show_text=0';
+		}
+
+		return '<iframe class="social-video-embed social-video-embed-facebook" src="' . htmlspecialchars($embedUrl, ENT_QUOTES, 'UTF-8') . '" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>';
 	}
 
 

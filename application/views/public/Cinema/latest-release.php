@@ -60,6 +60,31 @@
          display: block;
          margin: 10px 0;
       }
+
+      .release-content iframe,
+      .release-content .social-video-embed {
+         width: 100%;
+         min-height: 360px;
+         border: 0;
+         display: block;
+         margin: 12px 0;
+      }
+
+      .release-content .social-video-embed-instagram {
+         min-height: 620px;
+      }
+
+      @media (max-width: 767px) {
+
+         .release-content iframe,
+         .release-content .social-video-embed {
+            min-height: 260px;
+         }
+
+         .release-content .social-video-embed-instagram {
+            min-height: 440px;
+         }
+      }
    </style>
 </head>
 

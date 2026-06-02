@@ -58,6 +58,94 @@
       return;
     }
 
+    var VideoBlot = Quill.import("formats/video");
+
+    function normalizeYoutubeUrl(url) {
+      var match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{6,})/i);
+      if (!match || !match[1]) {
+        return url;
+      }
+
+      return "https://www.youtube.com/embed/" + match[1];
+    }
+
+    function normalizeVimeoUrl(url) {
+      var match = url.match(/vimeo\.com\/(?:video\/)?([0-9]+)/i);
+      if (!match || !match[1]) {
+        return url;
+      }
+
+      return "https://player.vimeo.com/video/" + match[1];
+    }
+
+    function normalizeInstagramUrl(url) {
+      var match = url.match(/(?:instagram\.com|instagr\.am)\/(reel|p|tv)\/([A-Za-z0-9_-]+)/i);
+      if (!match || !match[1] || !match[2]) {
+        return url;
+      }
+
+      return "https://www.instagram.com/" + match[1].toLowerCase() + "/" + match[2] + "/embed";
+    }
+
+    function normalizeFacebookUrl(url) {
+      if (/facebook\.com\/plugins\/video\.php/i.test(url)) {
+        return url;
+      }
+
+      if (!/(facebook\.com|fb\.watch)/i.test(url)) {
+        return url;
+      }
+
+      return "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(url) + "&show_text=0";
+    }
+
+    function normalizeVideoUrl(rawUrl) {
+      var url = (rawUrl || "").toString().trim();
+
+      if (!url) {
+        return "";
+      }
+
+      if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url.replace(/^\/+/, "");
+      }
+
+      if (/(instagram\.com|instagr\.am)/i.test(url)) {
+        return normalizeInstagramUrl(url);
+      }
+
+      if (/(facebook\.com|fb\.watch)/i.test(url)) {
+        return normalizeFacebookUrl(url);
+      }
+
+      if (/(youtube\.com|youtu\.be)/i.test(url)) {
+        return normalizeYoutubeUrl(url);
+      }
+
+      if (/vimeo\.com/i.test(url)) {
+        return normalizeVimeoUrl(url);
+      }
+
+      return url;
+    }
+
+    var BaseVideoSanitize = VideoBlot.sanitize;
+    VideoBlot.sanitize = function(url) {
+      var normalized = normalizeVideoUrl(url);
+      if (typeof BaseVideoSanitize === "function") {
+        return BaseVideoSanitize.call(this, normalized);
+      }
+
+      return normalized;
+    };
+
+    var BaseVideoCreate = VideoBlot.create;
+    VideoBlot.create = function(value) {
+      return BaseVideoCreate.call(this, normalizeVideoUrl(value));
+    };
+
+    Quill.register(VideoBlot, true);
+
     window.quillConfigReady = true;
   }
 
