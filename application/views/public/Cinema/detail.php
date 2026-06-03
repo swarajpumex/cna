@@ -21,24 +21,34 @@
          margin-bottom: 0;
       }
 
-      .detail-content .social-video-frame {
-         position: relative;
-         width: 100%;
-         height: 0;
-         padding-top: 56.25%;
-         margin: 12px 0;
-         overflow: hidden;
-         background: #000;
+      .detail-content .social-video-embed,
+      .detail-content .social-video-embed-instagram,
+      .detail-content .social-video-embed-facebook,
+      .detail-content iframe[src*="instagram.com"],
+      .detail-content iframe[src*="facebook.com/plugins/video.php"],
+      .detail-content iframe[src*="facebook.com/plugins/post.php"],
+      .detail-content iframe[src*="facebook.com/watch"],
+      .detail-content iframe[src*="facebook.com/reel"] {
+         width: 100% !important;
+         max-width: 100% !important;
+         height: auto !important;
+         display: block;
+         margin: 15px auto;
+         border: 0;
       }
 
-      .detail-content .social-video-frame iframe {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100% !important;
-         height: 100% !important;
-         border: 0;
-         display: block;
+      @media (max-width: 768px) {
+
+         .detail-content .social-video-embed,
+         .detail-content .social-video-embed-instagram,
+         .detail-content .social-video-embed-facebook,
+         .detail-content iframe[src*="instagram.com"],
+         .detail-content iframe[src*="facebook.com/plugins/video.php"],
+         .detail-content iframe[src*="facebook.com/plugins/post.php"],
+         .detail-content iframe[src*="facebook.com/watch"],
+         .detail-content iframe[src*="facebook.com/reel"] {
+            max-width: 100% !important;
+         }
       }
    </style>
    <?php foreach ($films as $values) { ?>
@@ -59,55 +69,105 @@
 
    <?php } ?>
 
-
-
-
-
-
-
-
-
-
 </head>
 
 <body>
-
-
-
-
-
-   <!---SOCIAL MEDIA SHARE PLUGIN--->
-
-
-
-   <!--<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5f57a0e8de227f00121470c2&product=sop' async='async'></script>--->
-
-
-
-
-   <!--<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5f57a0e8de227f00121470c2&product=sop' async='async'></script>--->
-
-
-
-
-
-
-
-
-
-
 
    <?php include 'header.php'; ?>
    <section class="main-sctn pt0">
 
       <script>
          (function() {
+            function parsePixels(value) {
+               if (!value) {
+                  return null;
+               }
+
+               var match = String(value).match(/(\d+(?:\.\d+)?)/);
+               return match ? parseFloat(match[1]) : null;
+            }
+
+            function parseStylePixels(styleText, prop) {
+               if (!styleText) {
+                  return null;
+               }
+
+               var regex = new RegExp(prop + '\\s*:\\s*(\\d+(?:\\.\\d+)?)px', 'i');
+               var match = String(styleText).match(regex);
+               return match ? parseFloat(match[1]) : null;
+            }
+
+            function getDimensionsFromSrc(src) {
+               if (!src || !window.URL) {
+                  return null;
+               }
+
+               try {
+                  var url = new URL(src, window.location.href);
+                  var width = parsePixels(url.searchParams.get('width'));
+                  var height = parsePixels(url.searchParams.get('height'));
+                  if (width > 0 && height > 0) {
+                     return {
+                        width: width,
+                        height: height
+                     };
+                  }
+               } catch (e) {
+                  return null;
+               }
+
+               return null;
+            }
+
+            function getEmbedDimensions(iframe) {
+               var styleText = iframe.getAttribute('style') || '';
+               var width = parsePixels(iframe.getAttribute('width')) ||
+                  parsePixels(iframe.style.width) ||
+                  parseStylePixels(styleText, 'width');
+               var height = parsePixels(iframe.getAttribute('height')) ||
+                  parsePixels(iframe.style.height) ||
+                  parseStylePixels(styleText, 'height');
+
+               if (width > 0 && height > 0) {
+                  return {
+                     width: width,
+                     height: height
+                  };
+               }
+
+               return getDimensionsFromSrc(iframe.getAttribute('src') || '');
+            }
+
+            function getEmbedType(iframe) {
+               var src = (iframe.getAttribute('src') || '').toLowerCase();
+               if (iframe.classList.contains('social-video-embed-instagram') || src.indexOf('instagram.com') !== -1) {
+                  return 'instagram';
+               }
+
+               if (iframe.classList.contains('social-video-embed-facebook') ||
+                  src.indexOf('facebook.com/plugins/video.php') !== -1 ||
+                  src.indexOf('facebook.com/plugins/post.php') !== -1 ||
+                  src.indexOf('facebook.com/watch') !== -1 ||
+                  src.indexOf('facebook.com/reel') !== -1) {
+                  return 'facebook';
+               }
+
+               return '';
+            }
+
+            function isFacebookEmbed(iframe) {
+               var src = (iframe.getAttribute('src') || '').toLowerCase();
+               return iframe.classList.contains('social-video-embed-facebook') ||
+                  src.indexOf('facebook.com/plugins/video.php') !== -1 ||
+                  src.indexOf('facebook.com/plugins/post.php') !== -1 ||
+                  src.indexOf('facebook.com/watch') !== -1 ||
+                  src.indexOf('facebook.com/reel') !== -1;
+            }
+
             function isSocialEmbed(iframe) {
                var src = (iframe.getAttribute('src') || '').toLowerCase();
                return iframe.classList.contains('social-video-embed') ||
                   iframe.classList.contains('social-video-embed-instagram') ||
-                  iframe.classList.contains('social-video-embed-facebook') ||
-                  src.indexOf('facebook.com/plugins/video.php') !== -1 ||
                   (src.indexOf('instagram.com') !== -1 && src.indexOf('/embed') !== -1);
             }
 
@@ -118,28 +178,36 @@
                }
 
                iframes.forEach(function(iframe) {
-                  if (!isSocialEmbed(iframe)) {
+                  var type = getEmbedType(iframe);
+                  if (!type && !isSocialEmbed(iframe) && !isFacebookEmbed(iframe)) {
                      return;
                   }
 
-                  if (iframe.parentElement && iframe.parentElement.classList.contains('social-video-frame')) {
-                     return;
+                  var dimensions = getEmbedDimensions(iframe);
+                  if (!dimensions) {
+                     if (type === 'instagram') {
+                        dimensions = {
+                           width: 540,
+                           height: 850
+                        };
+                     } else if (type === 'facebook') {
+                        dimensions = {
+                           width: 500,
+                           height: 750
+                        };
+                     }
                   }
 
-                  var wrapper = document.createElement('div');
-                  wrapper.className = 'social-video-frame';
+                  if (dimensions) {
+                     iframe.style.setProperty('max-width', dimensions.width + 'px', 'important');
+                     iframe.style.setProperty('aspect-ratio', dimensions.width + ' / ' + dimensions.height, 'important');
+                  }
 
-                  iframe.removeAttribute('width');
-                  iframe.removeAttribute('height');
                   iframe.style.setProperty('width', '100%', 'important');
-                  iframe.style.setProperty('height', '100%', 'important');
+                  iframe.style.setProperty('height', 'auto', 'important');
                   iframe.style.setProperty('min-height', '0', 'important');
                   iframe.style.setProperty('display', 'block', 'important');
-                  iframe.style.setProperty('margin', '0', 'important');
-
-                  var parent = iframe.parentNode;
-                  parent.insertBefore(wrapper, iframe);
-                  wrapper.appendChild(iframe);
+                  iframe.style.setProperty('margin', '15px auto', 'important');
                });
             }
 
@@ -152,11 +220,6 @@
 
             <div class="col-md-9">
                <div class="blog">
-                  <!--  <div class="col-md-12">
-                           -->
-
-
-
                   <div class="row">
                      <?php foreach ($films as $values) { ?>
                         <div class="col-md-11">
@@ -166,35 +229,9 @@
                               <p class="bnrsubhd"><?php echo $date; ?></p>
                            </div>
 
-                           <!------------------------------------------------------------------------------------------------------------------------------------->
-
-                           <!--- SOCIAL MEDIA SHARING CODE--->
-
-
-                           <!--<meta property="og:image:secure_url" itemprop="image" content="https://www.w3schools.com/images/picture.jpg">-->
-
-                           <!--<a href="whatsapp://send?text=<?php echo current_url(); ?>" >share on whatsapp</a>-->
-
-
-
-
-                           <!----------------------------------------------------------------------------------------------------------------------------------------------->
-
-
-
-
-
-
-
-
                            <div class="bnrpic1">
                               <img src="<?php echo base_url(); ?>uploads/film_image/<?php echo $values['Image']; ?>" alt="banner" class="img-fluid">
                            </div>
-
-
-
-
-
 
                            <div class="banner-content">
                               <p><b><?php echo $values['By_Line']; ?></b></p>
@@ -245,47 +282,18 @@
                      </div>
                   <?php } ?>
                </div>
-               <!--<div class="row">-->
-               <!--   <div class="wk-trnd"></div>-->
-               <!--   <?php foreach ($side_add as $val) { ?>-->
-               <!--   <div class="bk-shw"> -->
-               <!--      <img src="<?php echo base_url(); ?>uploads/advertise_image/<?php echo $val['Photo']; ?>" alt="Image" class="img-fluid" style="height: 250px">-->
-               <!--   </div>-->
-               <!--   <?php } ?>-->
-               <!--</div>-->
             </div>
 
          </div>
-
-
-
-
       </div>
       </div>
-
-
-
-
    </section>
-
-
-
-
 
    <!-- Go to www.addthis.com/dashboard to customize your tools -->
    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f8e748777d449bf"></script>
 
-
-
-
-
    <?php include 'footer.php'; ?>
    <?php include 'bottom-js.php'; ?>
-
-
-
-
-
 
 </body>
 
