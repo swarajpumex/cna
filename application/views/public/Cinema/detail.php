@@ -21,7 +21,25 @@
          margin-bottom: 0;
       }
 
-      .detail-content .social-video-embed,
+      .youtube-trailer-wrap {
+         position: relative;
+         width: 100%;
+         max-width: 100%;
+         height: 0;
+         padding-top: 56.25%;
+         margin: 0 0 15px;
+      }
+
+      .youtube-trailer-frame {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         border: 0;
+         display: block;
+      }
+
       .detail-content .social-video-embed-instagram,
       .detail-content .social-video-embed-facebook,
       .detail-content iframe[src*="instagram.com"],
@@ -33,13 +51,12 @@
          max-width: 100% !important;
          height: auto !important;
          display: block;
-         margin: 15px auto;
+         margin: 15px 0;
          border: 0;
       }
 
       @media (max-width: 768px) {
 
-         .detail-content .social-video-embed,
          .detail-content .social-video-embed-instagram,
          .detail-content .social-video-embed-facebook,
          .detail-content iframe[src*="instagram.com"],
@@ -78,6 +95,13 @@
 
       <script>
          (function() {
+            function isYouTubeEmbed(iframe) {
+               var src = (iframe.getAttribute('src') || '').toLowerCase();
+               return src.indexOf('youtube.com/embed/') !== -1 ||
+                  src.indexOf('youtube-nocookie.com/embed/') !== -1 ||
+                  src.indexOf('youtu.be/') !== -1;
+            }
+
             function parsePixels(value) {
                if (!value) {
                   return null;
@@ -166,9 +190,40 @@
 
             function isSocialEmbed(iframe) {
                var src = (iframe.getAttribute('src') || '').toLowerCase();
-               return iframe.classList.contains('social-video-embed') ||
-                  iframe.classList.contains('social-video-embed-instagram') ||
+               return iframe.classList.contains('social-video-embed-instagram') ||
                   (src.indexOf('instagram.com') !== -1 && src.indexOf('/embed') !== -1);
+            }
+
+            function wrapYouTubeEmbeds() {
+               var iframes = document.querySelectorAll('.detail-content iframe');
+               if (!iframes.length) {
+                  return;
+               }
+
+               iframes.forEach(function(iframe) {
+                  if (!isYouTubeEmbed(iframe)) {
+                     return;
+                  }
+
+                  if (iframe.parentElement && iframe.parentElement.classList.contains('youtube-trailer-wrap')) {
+                     return;
+                  }
+
+                  var wrapper = document.createElement('div');
+                  wrapper.className = 'youtube-trailer-wrap';
+
+                  iframe.classList.add('youtube-trailer-frame');
+                  iframe.style.removeProperty('max-width');
+                  iframe.style.removeProperty('aspect-ratio');
+                  iframe.style.removeProperty('height');
+                  iframe.style.removeProperty('min-height');
+                  iframe.style.removeProperty('margin');
+                  iframe.style.removeProperty('width');
+
+                  var parent = iframe.parentNode;
+                  parent.insertBefore(wrapper, iframe);
+                  wrapper.appendChild(iframe);
+               });
             }
 
             function wrapSocialEmbeds() {
@@ -178,6 +233,10 @@
                }
 
                iframes.forEach(function(iframe) {
+                  if (isYouTubeEmbed(iframe)) {
+                     return;
+                  }
+
                   var type = getEmbedType(iframe);
                   if (!type && !isSocialEmbed(iframe) && !isFacebookEmbed(iframe)) {
                      return;
@@ -207,12 +266,17 @@
                   iframe.style.setProperty('height', 'auto', 'important');
                   iframe.style.setProperty('min-height', '0', 'important');
                   iframe.style.setProperty('display', 'block', 'important');
-                  iframe.style.setProperty('margin', '15px auto', 'important');
+                  iframe.style.setProperty('margin', '15px 0', 'important');
                });
             }
 
-            document.addEventListener('DOMContentLoaded', wrapSocialEmbeds);
-            window.addEventListener('load', wrapSocialEmbeds);
+            function initEmbedSizing() {
+               wrapYouTubeEmbeds();
+               wrapSocialEmbeds();
+            }
+
+            document.addEventListener('DOMContentLoaded', initEmbedSizing);
+            window.addEventListener('load', initEmbedSizing);
          })();
       </script>
       <div class="container">
@@ -256,10 +320,10 @@
                            <?php } ?>
                            <?php foreach ($trailer as $val) { ?>
                               <div class="col-xl-6 col-md-12 stretch-card grid-margin mb3">
-                                 <div class="embed-responsive embed-responsive-16by9">
+                                 <div class="youtube-trailer-wrap">
                                     <!--<a href="<?php echo "https://youtube.com/embed/" . substr($val['TrailerLink'], 17); ?>" target="_blank"><img  src="<?php echo base_url(); ?>uploads/trailer_image/<?php echo $val['Photo']; ?>" alt="" style="height: 300px;"><button class="btn"><span><img src="<?php echo base_url(); ?>img/play.png" alt="thumb" width="80" height="80" style="width:80px;"/></span></button></a> -->
 
-                                    <iframe class="embed-responsive-item" src="<?php echo "https://youtube.com/embed/" . substr($val['TrailerLink'], 17); ?>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe class="youtube-trailer-frame" src="<?php echo "https://youtube.com/embed/" . substr($val['TrailerLink'], 17); ?>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                                  </div>
                               </div>
