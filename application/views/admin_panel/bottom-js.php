@@ -29,7 +29,7 @@
 
 
 <!--- For  google recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
 <script src="<?php echo base_url(); ?>js/for-recaptcha.js"></script> <!--- for showing recaptcha more than 1 field in a page-->
 
 <!-- Quill -->
