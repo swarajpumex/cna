@@ -112,9 +112,25 @@ class Site extends CI_Controller
 	}
 	function upcomings()
 	{
-	    $data['film']=$this->db->get_where('film_tb',"Category = 'Upcoming' AND Status='Active' ORDER BY DateCreated DESC,Id DESC")->result_array();
-		$data['lan']=$this->db->get_where('language',"Status = 'Active'")->result_array();
-		$data['lang']=$this->db->get_where('film_tb',"Language = 'Malayalam' AND Status = 'Active'")->result_array();
+		$per_page = 24;
+		$page = max(1, (int) $this->input->get('page', TRUE));
+
+		$this->db->where(array('Category' => 'Upcoming', 'Status' => 'Active'));
+		$total_films = $this->db->count_all_results('film_tb');
+		$total_pages = max(1, (int) ceil($total_films / $per_page));
+		$page = min($page, $total_pages);
+
+		$data['film'] = $this->db
+			->select('UniqueName, Image, FilmName')
+			->where(array('Category' => 'Upcoming', 'Status' => 'Active'))
+			->order_by('DateCreated', 'DESC')
+			->order_by('Id', 'DESC')
+			->limit($per_page, ($page - 1) * $per_page)
+			->get('film_tb')
+			->result_array();
+		$data['current_page'] = $page;
+		$data['total_pages'] = $total_pages;
+		$data['pagination_url'] = base_url('Site/upcomings');
     	$query12=$this->db->query("SELECT * FROM advertise where Status='Active' AND Space='NewsList' ORDER BY Id DESC  LIMIT 0,2");
 		$data['add_news_list']=$query12->result_array();
 		//$data['upcoming']=$this->db->get_where('film_tb',"Category = 'Upcoming'")->result_array();
@@ -156,7 +172,24 @@ class Site extends CI_Controller
 	}
 	function interviews()
 	{
-	    $data['interview']=$this->db->get_where('interview_tb',"Status = 'Active' ORDER BY Id DESC")->result_array();
+		$per_page = 24;
+		$page = max(1, (int) $this->input->get('page', TRUE));
+
+		$this->db->where('Status', 'Active');
+		$total_items = $this->db->count_all_results('interview_tb');
+		$total_pages = max(1, (int) ceil($total_items / $per_page));
+		$page = min($page, $total_pages);
+
+		$data['interview'] = $this->db
+			->select('Id, Title, CoverImage')
+			->where('Status', 'Active')
+			->order_by('Id', 'DESC')
+			->limit($per_page, ($page - 1) * $per_page)
+			->get('interview_tb')
+			->result_array();
+		$data['current_page'] = $page;
+		$data['total_pages'] = $total_pages;
+		$data['pagination_url'] = base_url('Site/interviews');
 		$this->load->view('public/Cinema/interviews',$data);
 	}
 	function interviewdetails($id)
@@ -177,8 +210,24 @@ class Site extends CI_Controller
 	}
 	function shortfilm()
 	{
-	    $round=$this->db->query("SELECT * FROM shortfilm_tb where Status='Active' ORDER BY Id DESC");
-		$data['shortfilm']=$round->result_array();
+		$per_page = 24;
+		$page = max(1, (int) $this->input->get('page', TRUE));
+
+		$this->db->where('Status', 'Active');
+		$total_items = $this->db->count_all_results('shortfilm_tb');
+		$total_pages = max(1, (int) ceil($total_items / $per_page));
+		$page = min($page, $total_pages);
+
+		$data['shortfilm'] = $this->db
+			->select('Photo, FilmName, Details, TrailerLink')
+			->where('Status', 'Active')
+			->order_by('Id', 'DESC')
+			->limit($per_page, ($page - 1) * $per_page)
+			->get('shortfilm_tb')
+			->result_array();
+		$data['current_page'] = $page;
+		$data['total_pages'] = $total_pages;
+		$data['pagination_url'] = base_url('Site/shortfilm');
 		$this->load->view('public/Cinema/roundup',$data);
 	}
 	function reviews()
@@ -203,19 +252,59 @@ class Site extends CI_Controller
 	}
 	function trailer()
 	{
-	    //$data['trailer']=$this->db->get_where('trailer_tb',"Status = 'Active' ORDER BY Id DESC")->result_array();
-	    
-	    $query=$this->db->query("SELECT trailer_tb.* FROM  trailer_tb JOIN film_tb ON film_tb.Id=FilmId where trailer_tb.Status='Active' ORDER BY film_tb.DateCreated DESC,Id DESC");
-		$data['trailer']=$query->result_array();
+		//$data['trailer']=$this->db->get_where('trailer_tb',"Status = 'Active' ORDER BY Id DESC")->result_array();
+		$per_page = 24;
+		$page = max(1, (int) $this->input->get('page', TRUE));
+
+		$this->db->from('trailer_tb');
+		$this->db->join('film_tb', 'film_tb.Id = trailer_tb.FilmId');
+		$this->db->where('trailer_tb.Status', 'Active');
+		$total_items = $this->db->count_all_results();
+		$total_pages = max(1, (int) ceil($total_items / $per_page));
+		$page = min($page, $total_pages);
+
+		$data['trailer'] = $this->db
+			->select('trailer_tb.Photo, trailer_tb.FilmName, trailer_tb.Details, trailer_tb.TrailerLink')
+			->from('trailer_tb')
+			->join('film_tb', 'film_tb.Id = trailer_tb.FilmId')
+			->where('trailer_tb.Status', 'Active')
+			->order_by('film_tb.DateCreated', 'DESC')
+			->order_by('trailer_tb.Id', 'DESC')
+			->limit($per_page, ($page - 1) * $per_page)
+			->get()
+			->result_array();
+		$data['current_page'] = $page;
+		$data['total_pages'] = $total_pages;
+		$data['pagination_url'] = base_url('Site/trailer');
 	    
 		$this->load->view('public/Cinema/trailers',$data);
 	}
 	function songs()
 	{
-	   // $data['song']=$this->db->get_where('song_tb',"Status = 'Active' ORDER BY Id DESC")->result_array();
-	    
-	    $query=$this->db->query("SELECT song_tb.* FROM  song_tb JOIN film_tb ON film_tb.Id=FilmId where song_tb.Status='Active' ORDER BY DateCreated DESC");
-		$data['song']=$query->result_array();
+		// $data['song']=$this->db->get_where('song_tb',"Status = 'Active' ORDER BY Id DESC")->result_array();
+		$per_page = 24;
+		$page = max(1, (int) $this->input->get('page', TRUE));
+
+		$this->db->from('song_tb');
+		$this->db->join('film_tb', 'film_tb.Id = song_tb.FilmId');
+		$this->db->where('song_tb.Status', 'Active');
+		$total_items = $this->db->count_all_results();
+		$total_pages = max(1, (int) ceil($total_items / $per_page));
+		$page = min($page, $total_pages);
+
+		$data['song'] = $this->db
+			->select('song_tb.Photo, song_tb.SongName, song_tb.Link')
+			->from('song_tb')
+			->join('film_tb', 'film_tb.Id = song_tb.FilmId')
+			->where('song_tb.Status', 'Active')
+			->order_by('film_tb.DateCreated', 'DESC')
+			->order_by('song_tb.Id', 'DESC')
+			->limit($per_page, ($page - 1) * $per_page)
+			->get()
+			->result_array();
+		$data['current_page'] = $page;
+		$data['total_pages'] = $total_pages;
+		$data['pagination_url'] = base_url('Site/songs');
 		$this->load->view('public/Cinema/song',$data);
 	}
 	

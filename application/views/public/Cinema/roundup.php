@@ -88,7 +88,7 @@
                <div class="Portfolios col-md-4">
                   <div class="revw-bx">
                      <div class="rvws-img">
-                        <img src="<?php echo base_url(); ?>uploads/trailer_image/<?php echo $val['Photo']; ?>" alt="" class="img-fluid">
+                        <img src="<?php echo base_url(); ?>uploads/trailer_image/<?php echo $val['Photo']; ?>" alt="" class="img-fluid" loading="lazy" decoding="async">
                      </div>
                      <div class="rvws-content">
 
@@ -107,7 +107,7 @@
                                              <!--Body-->
                                              <div class="modal-body mb-0 p-0">
                                                 <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                                   <iframe id="playerID" class="embed-responsive-item" src="<?php echo "https://youtube.com/embed/" . substr($val['TrailerLink'], 17); ?>"
+                                                   <iframe class="embed-responsive-item" data-src="<?php echo "https://youtube.com/embed/" . substr($val['TrailerLink'], 17); ?>"
                                                       allowfullscreen></iframe>
                                                 </div>
                                              </div>
@@ -119,7 +119,7 @@
                                                 <!---<a  class="btn-floating btn-sm btn-tw"><i class="fab fa-twitter"></i></a>
                                                 <!--Linkedin-->
                                                 <!---<a class="btn-floating btn-sm btn-ins"><i class="fab fa-linkedin-in"></i></a>--->
-                                                <button onclick="pauseVideo()" class="btn ml-4" data-dismiss="modal">Close</button>
+                                                <button class="btn ml-4" data-dismiss="modal">Close</button>
                                              </div>
                                           </div>
                                           <!--/.Content-->
@@ -135,6 +135,7 @@
             <?php $i++;
             }    ?>
          </div>
+         <?php include 'pagination.php'; ?>
       </div>
    </section>
 
@@ -146,20 +147,13 @@
    <?php include 'footer.php'; ?>
 
    <?php include 'bottom-js.php'; ?>
-   <script>
-      $('#modal1').on('hidden.bs.modal', function(e) {
-         // do something...
-         $('#modal1 iframe').attr("src", $("#modal1 iframe").attr("src"));
-         $('#modal1').modal({
-            backdrop: 'static',
-            keyboard: false
-         })
-      });
-   </script>
    <script type="text/javascript">
-      function pauseVideo() {
-         location.reload(true);
-      }
+      $('.modal').on('shown.bs.modal', function() {
+         var iframe = $(this).find('iframe[data-src]');
+         iframe.attr('src', iframe.data('src'));
+      }).on('hidden.bs.modal', function() {
+         $(this).find('iframe[data-src]').removeAttr('src');
+      });
    </script>
 </body>
 
