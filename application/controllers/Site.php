@@ -86,9 +86,25 @@ class Site extends CI_Controller
 	
 	function latest()
 	{
-	    $data['film']=$this->db->get_where('film_tb',"Category = 'Release' AND Status='Active' ORDER BY DateCreated DESC,Id DESC")->result_array();
-		$data['lan']=$this->db->get_where('language',"Status = 'Active'")->result_array();
-		$data['lang']=$this->db->get_where('film_tb',"Language = 'Malayalam' AND Status = 'Active'")->result_array();
+		$per_page = 24;
+		$page = max(1, (int) $this->input->get('page', TRUE));
+
+		$this->db->where(array('Category' => 'Release', 'Status' => 'Active'));
+		$total_films = $this->db->count_all_results('film_tb');
+		$total_pages = max(1, (int) ceil($total_films / $per_page));
+		$page = min($page, $total_pages);
+
+		$data['film'] = $this->db
+			->select('UniqueName, Image, FilmName')
+			->where(array('Category' => 'Release', 'Status' => 'Active'))
+			->order_by('DateCreated', 'DESC')
+			->order_by('Id', 'DESC')
+			->limit($per_page, ($page - 1) * $per_page)
+			->get('film_tb')
+			->result_array();
+		$data['current_page'] = $page;
+		$data['total_pages'] = $total_pages;
+		$data['pagination_url'] = base_url('Site/latest');
 		$query12=$this->db->query("SELECT * FROM advertise where Status='Active' AND Space='NewsList' ORDER BY Id DESC  LIMIT 0,2");
 		$data['add_news_list']=$query12->result_array();
 		//$data['upcoming']=$this->db->get_where('film_tb',"Category = 'Upcoming'")->result_array();
