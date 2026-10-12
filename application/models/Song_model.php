@@ -207,12 +207,17 @@ class Song_model extends CI_Model {
 
     public function recordAdminActions($action) 
     {
+		$userLogId = $this->session->userdata('ADMIN_USER_LOG_ID');
+		$userName = $this->session->userdata('ADMIN_ID');
+		if (!$userLogId || !$userName) {
+			return FALSE;
+		}
         
          //----- inseting into user_log table
                      
                             $insertData= array (
-                            'UserLogId' => $_SESSION['ADMIN_USER_LOG_ID'],
-                            'UserName' => $_SESSION['ADMIN_ID'],
+			'UserLogId' => $userLogId,
+			'UserName' => $userName,
                             'Actions' => $action,
                             'ActionIP' => getRequestIPAddress()    
                             );

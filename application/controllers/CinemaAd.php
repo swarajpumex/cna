@@ -706,8 +706,9 @@ class CinemaAd extends CI_Controller
 		$data["headTitle"] = $this->headTitle;
 		$data["adminController"] = $this->adminController;
 		$data["admin_navigation"]   = $this->AdminModel->getAdminMenu();
-		$query4 = $this->db->query("SELECT * FROM film_tb where Status='Active' ORDER BY Id DESC");
+		$query4 = $this->db->query("SELECT Photo FROM film_tb where Status='Active' ORDER BY Id DESC");
 		$data['media'] = $query4->result_array();
+		$query4->free_result();
 		$this->load->view('admin_panel/latest-release', $data);
 	}
 

@@ -115,7 +115,7 @@ class AdminModel extends CI_Model
                     );
 
                     $this->db->insert('sys_user_log', $insertData);
-                    $_SESSION['ADMIN_USER_LOG_ID'] =  $this->db->insert_id(); // this is for inserting user actions into user_log_detail table
+                    $this->session->set_userdata('ADMIN_USER_LOG_ID', $this->db->insert_id());
 
 
 

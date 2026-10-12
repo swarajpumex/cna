@@ -86,8 +86,7 @@ class Film_model extends CI_Model {
  function countFiltered()
 	{
 		$this->getDataTableQuery();
-		$query = $this->db->get();
-		return $query->num_rows();
+		return $this->db->count_all_results();
 	}
 
 	public function countAll()
